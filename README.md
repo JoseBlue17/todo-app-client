@@ -1,2 +1,2 @@
 # todo-app.client
-To Do app for onboarding and testing purposes
+To Do app frontend for onboarding and testing purposes
