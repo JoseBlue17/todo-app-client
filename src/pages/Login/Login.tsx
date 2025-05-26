@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,6 +25,12 @@ export default function Login() {
     setError('');
     navigate('/home');
   };
+=======
+import { useLogin } from './useLogin';
+
+export default function Login() {
+  const { email, setEmail, password, setPassword, handleSubmit } = useLogin();
+>>>>>>> 9398295aa6f72f2c16110aaed7957697932a1ccc
 
   //SVG Icono Todo List
   const group = (
@@ -36,6 +43,7 @@ export default function Login() {
   );
 
   return (
+<<<<<<< HEAD
     <section className="min-h-screen flex flex-col items-center justify-center bg-white font-lato px-4 sm:px-6">
       <div className="flex flex-col mt-[60px] sm:mt-[191px] items-center mb-8 text-center">
         {group}
@@ -104,5 +112,36 @@ export default function Login() {
         </div>
       </form>
     </section>
+=======
+    <form
+      className="max-w-sm mx-auto mt-10 p-4 border rounded bg-white shadow"
+      onSubmit={handleSubmit}
+    >
+      <div className="mb-4">
+        <label className="block mb-1">Email:</label>
+        <input
+          className="w-full border px-2 py-1 rounded"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block mb-1">Contraseña:</label>
+        <input
+          className="w-full border px-2 py-1 rounded"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </div>
+      <button
+        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        type="submit"
+      >
+        Iniciar sesión
+      </button>
+    </form>
+>>>>>>> 9398295aa6f72f2c16110aaed7957697932a1ccc
   );
 }
