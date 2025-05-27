@@ -25,7 +25,10 @@ export default function Login() {
     setError('');
     navigate('/home');
   };
+  const inputWrapperClasses = 'w-[296px] h-[32px] mb-4';
 
+  const inputClasses =
+    'w-full h-full px-3 py-[8px] border border-[#626262] rounded-[4px] focus:outline-none focus:ring-2  placeholder:text-[#626262] placeholder:text-[14px] placeholder:font-semibold placeholder:font-lato';
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-white font-lato px-4 sm:px-6">
       <div className="flex flex-col mt-[60px] sm:mt-[191px] items-center mb-8 text-center">
@@ -42,28 +45,24 @@ export default function Login() {
         {/* Estilos del texto de eroor*/}
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
         {/* Email */}
-        <div className="w-[296px] h-[32px] mb-4">
+        <div className={inputWrapperClasses}>
           <input
             id="email"
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className="w-full h-full px-3 py-[8px] border border-[#626262] rounded-[4px] focus:outline-none focus:ring-2 
-                  placeholder:text-[#626262] placeholder:text-[14px] placeholder:font-semibold placeholder:font-montserrat 
-                    "
+            className={inputClasses}
             placeholder="Email"
           />
         </div>
         {/* Password */}
-        <div className="w-full max-w-[296px] max-h-8 mb-4 ">
+        <div className={inputWrapperClasses}>
           <input
             id="password"
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            className="w-full h-full px-3 py-[8px] border border-[#757897] rounded-[4px] focus:outline-none focus:ring-2 
-                  placeholder:text-[#626262] placeholder:text-[14px] placeholder:font-semibold placeholder:font-lato 
-                    ]"
+            className={inputClasses}
             placeholder="Password"
           />
         </div>
