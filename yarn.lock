@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@ant-design/colors@^7.0.0", "@ant-design/colors@^7.2.0":
+"@ant-design/colors@^7.0.0", "@ant-design/colors@^7.2.1":
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/@ant-design/colors/-/colors-7.2.1.tgz#3bbc1c6c18550020d1622a0067ff03492318df98"
   integrity sha512-lCHDcEzieu4GA3n8ELeZ5VQ8pKQAWcGGLRTQ50aQM2iqPpq2evTxER84jfdPvsPAtEcZ7m44NI45edFMo8oOYQ==
@@ -1041,12 +1041,12 @@ ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-antd@^5.25.1:
-  version "5.25.2"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-5.25.2.tgz#f8186a15d6823d9c411670b308742523175b0ac7"
-  integrity sha512-7R2nUvlHhey7Trx64+hCtGXOiy+DTUs1Lv5bwbV1LzEIZIhWb0at1AM6V3K108a5lyoR9n7DX3ptlLF7uYV/DQ==
+antd@^5.25.2:
+  version "5.25.3"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-5.25.3.tgz#2ca1af6559f11ad107db822ffdfa73f30ab4aa54"
+  integrity sha512-tBBcAFRjmWM3sitxrL/FEbQL+MTQntYY5bGa5c1ZZZHXWCynkhS3Ch/gy25mGMUY1M/9Uw3pH029v/RGht1x3w==
   dependencies:
-    "@ant-design/colors" "^7.2.0"
+    "@ant-design/colors" "^7.2.1"
     "@ant-design/cssinjs" "^1.23.0"
     "@ant-design/cssinjs-utils" "^1.1.3"
     "@ant-design/fast-color" "^2.0.6"
@@ -2622,12 +2622,14 @@ to-regex-range@^5.0.1:
 "todo-app.client@file:.":
   version "0.0.0"
   dependencies:
-    antd "^5.25.1"
+    "@tailwindcss/vite" "^4.1.7"
+    antd "^5.25.2"
+    axios "^1.9.0"
     react "^18.2.0"
     react-dom "^18.2.0"
     react-router-dom "^7.6.0"
     tailwindcss "^4.1.7"
-    todo-app.client "file:../../../Users/PC/AppData/Local/Yarn/Cache/v6/npm-todo-app-client-0.0.0-4b9778f5-011e-4e6f-9d07-bcfb108dfc1b-1748017560380/node_modules/todo-app.client"
+    todo-app.client "file:C:/Users/Olive/AppData/Local/Yarn/Cache/v6/npm-todo-app-client-0.0.0-bc6a189d-1304-43ae-ac66-5302d9f0d385-1748442036904/node_modules/todo-app.client"
 
 toggle-selection@^1.0.6:
   version "1.0.6"
