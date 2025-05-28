@@ -61,7 +61,7 @@ export default function Login() {
           />
         </div>
         <div className="text-center text-white font-LexendDeca font-semibold">
-          <h2 className="text-[24px] font-bold mb-6">
+          <h2 className="text-[24px] font-semibold mb-6">
             Task Management &<br />
             To-Do List
           </h2>
