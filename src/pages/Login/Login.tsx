@@ -1,84 +1,85 @@
 import ListIcon from '../../components/ListIcon.tsx';
 import { useLogin } from './useLogin.tsx';
+import elementos from '../../assets/images/image_login.png';
 
 export default function Login() {
   const { email, setEmail, password, setPassword, handleSubmit, error } = useLogin();
 
-  const inputWrapperClasses = 'w-[296px] h-[32px] mb-4';
+  const inputWrapperClasses = 'w-full max-w-xs mb-4';
   const inputClasses =
-    'w-full h-full px-3 py-[8px] border border-[#626262] rounded-[4px] focus:outline-none focus:ring-2 placeholder:text-[#626262] placeholder:text-[14px] placeholder:font-semibold placeholder:font-lato';
+    'w-full px-3 py-2 border border-gray-500 rounded focus:outline-none placeholder:text-gray-500 placeholder:text-sm placeholder:font-semibold placeholder:font-lato';
 
   return (
-    <section className="min-h-screen flex font-lato">
-      <div className="hidden md:flex flex-col justify-between items-center w-[901px] h-[647apx] bg-[radial-gradient(circle,_#F8BBC2,_#A074CA)] p-6">
-        <div className="flex-1 flex items-center justify-center">
+    <section className="min-h-screen flex font-lato overflow-hidden">
+      <div className="hidden md:flex md:w-1/2 min-h-screen relative overflow-hidden bg-gradient-to-r from-[#F8BBC2] to-[#A074CA]">
+        <div className="absolute inset-0">
           <img
-            src="../public/images/image_login.png"
+            src={elementos}
             alt="Login Visual"
-            className="flex w-[700px] h-[700px] top-[253px] left-[253px] object-contain"
+            className="w-full h-full object-cover object-bottom"
           />
         </div>
-        <div className="text-center text-white font-LexendDeca font-semibold">
-          <h2 className="text-[24px] font-semibold mb-6">
-            Task Management &<br />
+        <div className="absolute bottom-0 left-0 right-0 text-center text-white font-LexendDeca font-semibold p-6">
+          <h2 className="text-2xl font-semibold mb-4">
+            Task Management &<br/>
             To-Do List
           </h2>
-          <p className="text-[14px] leading-snug font-normal mb-[45px] font-LexendDeca">
+          <p className="text-sm leading-snug font-normal font-LexendDeca">
             This productive tool is designed to help
-            <br />
+            <br/>
             you better manage your task
-            <br />
+            <br/>
             project-wise conveniently!
           </p>
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-full md:flex-1 px-6 bg-white">
-        <div className="flex flex-col items-center mb-8 text-center">
-          <ListIcon className="w-[68px] h-[65px]" />
-          <h2 className="text-xl font-semibold text-[#4A4A4A] mt-[35px]">To Do List</h2>
+      <div className="flex flex-col justify-center items-center w-full md:w-1/2 px-6 bg-white md:self-center">
+        <div className="flex flex-col items-center text-center">
+          <ListIcon className="w-[68.61px] h-[65px]" />
+          <h2 className="text-xl text-base font-semibold text-[#4A4A4A] mt-[35px] mb-[35px]">To Do List</h2>
           <p className="text-sm text-[#64748B]">Task Management App</p>
         </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg w-full max-w-sm flex flex-col items-center"
-      >
-        {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
-        <div className={inputWrapperClasses}>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            className={inputClasses}
-            placeholder="Email"
-          />
-        </div>
-        <div className={inputWrapperClasses}>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            className={inputClasses}
-            placeholder="Password"
-          />
-        </div>
-        <div className="flex justify-center w-full max-w-[296px] font-bold text-sm text-[#12223A] mb-3">
-          Forgot your password?
-        </div>
-        <button
-          type="submit"
-          className="w-full max-w-[296px] h-[52px] shadow-[0px_10px_20px_0px_#CBD6FF] bg-[#A275CA] text-white py-2 px-4 mt-[25px] rounded-[10px] hover:bg-[#8e5bb1] transition"
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-8 rounded-lg w-full max-w-sm flex flex-col items-center"
         >
-          Log in
-        </button>
-        <div className="flex justify-center text-[12px] font-bold max-w-[203px] mt-[93px] h-3.5 text-sm text-[#334155] mb-[220px]">
-          Not registered yet? Create an account
-        </div>
-      </form>
-    </div>
+          {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+          <div className={inputWrapperClasses}>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className={inputClasses}
+              placeholder="Email"
+            />
+          </div>
+          <div className={inputWrapperClasses}>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className={inputClasses}
+              placeholder="Password"
+            />
+          </div>
+          <div className="flex justify-center text-xs w-full max-w-xs font-bold text-sm text-[#12223A] mb-[25px]">
+            Forgot your password?
+          </div>
+          <button
+            type="submit"
+            className="w-full text-sm max-w-xs h-12 shadow-[0px_10px_20px_0px_#CBD6FF] bg-[#A275CA] text-white py-2 px-4 rounded-xl hover:bg-[#8e5bb1] transition"
+          >
+            Log in
+          </button>
+          <div className="flex justify-center text-xs font-bold max-w-xs mt-[93px] text-gray-700">
+            Not registered yet? Create an account
+          </div>
+        </form>
+      </div>
     </section>
   );
 }
