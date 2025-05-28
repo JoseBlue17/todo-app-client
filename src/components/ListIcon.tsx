@@ -1,6 +1,17 @@
-export default function ListIcon() {
+type ListIconProps = {
+  className?: string;
+};
+
+export default function ListIcon({ className }: ListIconProps) {
   return (
-    <svg width="71" height="67" viewBox="0 0 71 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="71"
+      height="67"
+      viewBox="0 0 71 67"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
       <path
         d="M22.6667 1H51.5556V11.8333H22.6667V1ZM22.6667 28.0833H58.7778V38.9167H22.6667V28.0833ZM22.6667 55.1667H69.6111V66H22.6667V55.1667Z"
         fill="#C18EC7"

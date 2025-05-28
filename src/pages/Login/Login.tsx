@@ -5,16 +5,40 @@ export default function Login() {
   const { email, setEmail, password, setPassword, handleSubmit, error } = useLogin();
 
   const inputWrapperClasses = 'w-[296px] h-[32px] mb-4';
-
   const inputClasses =
-    'w-full h-full px-3 py-[8px] border border-[#626262] rounded-[4px] focus:outline-none focus:ring-2  placeholder:text-[#626262] placeholder:text-[14px] placeholder:font-semibold placeholder:font-lato';
+    'w-full h-full px-3 py-[8px] border border-[#626262] rounded-[4px] focus:outline-none focus:ring-2 placeholder:text-[#626262] placeholder:text-[14px] placeholder:font-semibold placeholder:font-lato';
+
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-white font-lato px-4 sm:px-6">
-      <div className="flex flex-col mt-[60px] sm:mt-[191px] items-center mb-8 text-center">
-        <ListIcon />
-        <h2 className="text-xl font-semibold text-[#4A4A4A] mt-[35px]">To Do List</h2>
-        <p className="text-sm text-[#64748B]">Task Management App</p>
+    <section className="min-h-screen flex font-lato">
+      <div className="hidden md:flex flex-col justify-between items-center w-[901px] h-[647apx] bg-[radial-gradient(circle,_#F8BBC2,_#A074CA)] p-6">
+        <div className="flex-1 flex items-center justify-center">
+          <img
+            src="../public/images/image_login.png"
+            alt="Login Visual"
+            className="flex w-[700px] h-[700px] top-[253px] left-[253px] object-contain"
+          />
+        </div>
+        <div className="text-center text-white font-LexendDeca font-semibold">
+          <h2 className="text-[24px] font-semibold mb-6">
+            Task Management &<br />
+            To-Do List
+          </h2>
+          <p className="text-[14px] leading-snug font-normal mb-[45px] font-LexendDeca">
+            This productive tool is designed to help
+            <br />
+            you better manage your task
+            <br />
+            project-wise conveniently!
+          </p>
+        </div>
       </div>
+
+      <div className="flex flex-col justify-center items-center w-full md:flex-1 px-6 bg-white">
+        <div className="flex flex-col items-center mb-8 text-center">
+          <ListIcon className="w-[68px] h-[65px]" />
+          <h2 className="text-xl font-semibold text-[#4A4A4A] mt-[35px]">To Do List</h2>
+          <p className="text-sm text-[#64748B]">Task Management App</p>
+        </div>
 
       <form
         onSubmit={handleSubmit}
@@ -54,6 +78,7 @@ export default function Login() {
           Not registered yet? Create an account
         </div>
       </form>
+    </div>
     </section>
   );
 }
