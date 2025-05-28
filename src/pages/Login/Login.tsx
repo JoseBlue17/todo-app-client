@@ -1,30 +1,9 @@
 import ListIcon from '../../components/ListIcon.tsx';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLogin } from './useLogin.tsx';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const { email, setEmail, password, setPassword, handleSubmit, error } = useLogin();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      setError('Todos los campos son obligatorios.');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('El email no es válido.');
-      return;
-    }
-
-    setError('');
-    navigate('/home');
-  };
   const inputWrapperClasses = 'w-[296px] h-[32px] mb-4';
 
   const inputClasses =
@@ -41,10 +20,7 @@ export default function Login() {
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg w-full max-w-sm flex flex-col items-center"
       >
-        {' '}
-        {/* Estilos del texto de eroor*/}
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
-        {/* Email */}
         <div className={inputWrapperClasses}>
           <input
             id="email"
@@ -55,7 +31,6 @@ export default function Login() {
             placeholder="Email"
           />
         </div>
-        {/* Password */}
         <div className={inputWrapperClasses}>
           <input
             id="password"
