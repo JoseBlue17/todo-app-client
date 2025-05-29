@@ -3,7 +3,7 @@ import { useLogin } from './useLogin.tsx';
 import elementos from '../../assets/images/image_login.png';
 
 export default function Login() {
-  const { email, setEmail, password, setPassword, handleSubmit, error } = useLogin();
+  const { email, setEmail, password, setPassword, handleSubmit, generalError } = useLogin();
 
   const inputWrapperClasses = 'w-full max-w-xs mb-4';
   const inputClasses =
@@ -45,7 +45,6 @@ export default function Login() {
           onSubmit={handleSubmit}
           className="bg-white p-8 rounded-lg w-full max-w-sm flex flex-col items-center"
         >
-          {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
           <div className={inputWrapperClasses}>
             <input
               id="email"
@@ -71,10 +70,11 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="w-full text-sm max-w-xs h-12 shadow-[0px_10px_20px_0px_#CBD6FF] bg-[#A275CA] text-white py-2 px-4 rounded-xl hover:bg-[#8e5bb1] transition"
+            className="w-full text-sm max-w-xs h-12 shadow-[0px_7px_20px_0px_#CBD6FF] bg-[#A275CA] text-white py-2 px-4 rounded-xl hover:bg-[#8e5bb1] transition"
           >
             Log in
           </button>
+          {generalError && (<p className="text-red-500 text-sm text-center mt-3">{generalError}</p>)}
           <div className="flex justify-center text-xs font-bold max-w-xs mt-[93px] text-gray-700">
             Not registered yet? Create an account
           </div>

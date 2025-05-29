@@ -1,43 +1,48 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 import authService from '../../services/authService';
 
 export function useLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [generalError, setGeneralError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      setError('Todos los campos son obligatorios.');
+    const cleanedEmail = email.trim().toLowerCase();
+    const cleanedPassword = password.trim();
+
+    if (!cleanedEmail || !cleanedPassword) {
+      setGeneralError('Todos los campos son obligatorios.');
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('El email no es válido.');
-      return;
-    }
-
-    setError('');
+    setGeneralError('');
 
     try {
-      const data = await authService.login(email, password);
+      const data = await authService.login(cleanedEmail, cleanedPassword);
       const token = data.token;
-      
+
       localStorage.setItem('jwtToken', token);
       navigate('/home');
-
     } catch (err) {
+      console.error('Error al hacer login:', err);
+
       if (axios.isAxiosError(err) && err.response) {
-        setError(err.response.data.message || 'Error de autenticación.');
+        const { status } = err.response;
+
+        if (status === 400 || status === 401) {
+          setGeneralError('Correo o contraseña incorrectos.');
+        } else if (status >= 500) {
+          setGeneralError('Error del servidor. Intenta más tarde.');
+        } else {
+          setGeneralError('Ocurrió un error. Inténtalo de nuevo.');
+        }
       } else {
-        setError('Ocurrió un error. Inténtalo de nuevo.');
+        setGeneralError('No se pudo conectar con el servidor.');
       }
     }
   };
@@ -48,6 +53,6 @@ export function useLogin() {
     password,
     setPassword,
     handleSubmit,
-    error,
+    generalError,
   };
 }

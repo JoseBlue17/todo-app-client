@@ -12,7 +12,7 @@ body,
   width: 100%;
   min-height: 100dvh;
 }
-@theme {
+:root {
   --font-lato: "Lato", sans-serif; 
   --font-montserrat: "Montserrat", sans-serif;
   --font-LexendDeca: "Lexend Deca", sans-serif;
