@@ -21,14 +21,14 @@ export default function Login() {
         </div>
         <div className="absolute bottom-0 left-0 right-0 text-center text-white font-LexendDeca font-semibold p-6">
           <h2 className="text-2xl font-semibold mb-4">
-            Task Management &<br/>
+            Task Management &<br />
             To-Do List
           </h2>
           <p className="text-sm leading-snug font-normal font-LexendDeca">
             This productive tool is designed to help
-            <br/>
+            <br />
             you better manage your task
-            <br/>
+            <br />
             project-wise conveniently!
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function Login() {
       <div className="flex flex-col justify-center items-center w-full md:w-1/2 px-6 bg-white md:self-center">
         <div className="flex flex-col items-center text-center">
           <ListIcon className="w-[68.61px] h-[65px]" />
-          <h2 className="text-xl text-base font-semibold text-[#4A4A4A] mt-[35px] mb-[35px]">To Do List</h2>
+          <h2 className="text-xl font-semibold text-[#4A4A4A] mt-[35px] mb-[35px]">To Do List</h2>
           <p className="text-sm text-[#64748B]">Task Management App</p>
         </div>
 
@@ -65,7 +65,7 @@ export default function Login() {
               placeholder="Password"
             />
           </div>
-          <div className="flex justify-center text-xs w-full max-w-xs font-bold text-sm text-[#12223A] mb-[25px]">
+          <div className="flex justify-center text-xs w-full max-w-xs font-bold text-[#12223A] mb-[25px]">
             Forgot your password?
           </div>
           <button
@@ -74,7 +74,7 @@ export default function Login() {
           >
             Log in
           </button>
-          {generalError && (<p className="text-red-500 text-sm text-center mt-3">{generalError}</p>)}
+          {generalError && <p className="text-red-500 text-sm text-center mt-3">{generalError}</p>}
           <div className="flex justify-center text-xs font-bold max-w-xs mt-[93px] text-gray-700">
             Not registered yet? Create an account
           </div>
