@@ -3,7 +3,8 @@ import { useLogin } from './useLogin.tsx';
 import elementos from '../../assets/images/image_login.png';
 
 export default function Login() {
-  const { email, setEmail, password, setPassword, handleSubmit, generalError } = useLogin();
+  const { email, setEmail, password, setPassword, handleSubmit, loginError, passwordErrors } =
+    useLogin();
 
   const inputWrapperClasses = 'w-full max-w-xs mb-4';
   const inputClasses =
@@ -64,6 +65,18 @@ export default function Login() {
               className={inputClasses}
               placeholder="Password"
             />
+            {(passwordErrors.length > 0 || loginError) && (
+              <ul className="text-red-500 text-xs mt-1 list-disc pl-5">
+                {passwordErrors.map((err, idx) => (
+                  <li key={idx}>{err}</li>
+                ))}
+                {loginError && (
+                  <li className="font-bold">
+                    <span>Email or password incorrect</span>
+                  </li>
+                )}
+              </ul>
+            )}
           </div>
           <div className="flex justify-center text-xs w-full max-w-xs font-bold text-[#12223A] mb-[25px]">
             Forgot your password?
@@ -74,7 +87,6 @@ export default function Login() {
           >
             Log in
           </button>
-          {generalError && <p className="text-red-500 text-sm text-center mt-3">{generalError}</p>}
           <div className="flex justify-center text-xs font-bold max-w-xs mt-[93px] text-gray-700">
             Not registered yet? Create an account
           </div>
