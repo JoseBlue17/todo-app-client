@@ -7,6 +7,7 @@ export function useLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [generalError, setGeneralError] = useState('');
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -15,8 +16,14 @@ export function useLogin() {
     const cleanedEmail = email.trim().toLowerCase();
     const cleanedPassword = password.trim();
 
+    // Password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
     if (!cleanedEmail || !cleanedPassword) {
-      setGeneralError('Todos los campos son obligatorios.');
+      setGeneralError('All fields are required.');
+      return;
+    }
+    if (!passwordRegex.test(cleanedPassword)) {
+      setGeneralError('Password must be at least 6 characters, contain one uppercase letter, one lowercase letter, and one number.');
       return;
     }
 
@@ -35,24 +42,46 @@ export function useLogin() {
         const { status } = err.response;
 
         if (status === 400 || status === 401) {
-          setGeneralError('Correo o contraseña incorrectos.');
+          setGeneralError('Email or password incorrect.');
         } else if (status >= 500) {
-          setGeneralError('Error del servidor. Intenta más tarde.');
+          setGeneralError('Server error. Please try again later.');
         } else {
-          setGeneralError('Ocurrió un error. Inténtalo de nuevo.');
+          setGeneralError('An error occurred. Please try again.');
         }
       } else {
-        setGeneralError('No se pudo conectar con el servidor.');
+        setGeneralError('Could not connect to the server.');
       }
     }
+  };
+
+  // Real-time password validation function
+  const validatePassword = (value: string) => {
+    if (!value) {
+      setPasswordErrors([]);
+      return;
+    }
+    const errors = [];
+    if (value.length < 6) errors.push('Must be at least 6 characters.');
+    if (!/[A-Z]/.test(value)) errors.push('Must contain at least one uppercase letter.');
+    if (!/[a-z]/.test(value)) errors.push('Must contain at least one lowercase letter.');
+    if (!/\d/.test(value)) errors.push('Must contain at least one number.');
+    setPasswordErrors(errors);
+  };
+
+  // Update password and validate in real time
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    validatePassword(value);
   };
 
   return {
     email,
     setEmail,
     password,
-    setPassword,
+    setPassword: handlePasswordChange,
     handleSubmit,
     generalError,
+    passwordErrors,
+    loginError: generalError,
   };
 }

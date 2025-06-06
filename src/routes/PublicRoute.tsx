@@ -1,18 +1,18 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-interface ProtectedRouteProps {
+interface PublicRouteProps {
   children?: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   const isAuthenticated = localStorage.getItem('jwtToken');
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+  if (isAuthenticated) {
+    return <Navigate to="/home" replace />;
   }
 
   return children ? <>{children}</> : <Outlet />;
 };
 
-export default ProtectedRoute;
+export default PublicRoute;
