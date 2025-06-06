@@ -11,11 +11,9 @@ export default function AppRouter() {
         <Route
           path="/"
           element={
-            localStorage.getItem('jwtToken') ? (
+            <ProtectedRoute>
               <Navigate to="/home" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            </ProtectedRoute>
           }
         />
 

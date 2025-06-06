@@ -67,8 +67,8 @@ export default function Login() {
             />
             {(passwordErrors.length > 0 || loginError) && (
               <ul className="text-red-500 text-xs mt-1 list-disc pl-5">
-                {passwordErrors.map((err, idx) => (
-                  <li key={idx}>{err}</li>
+                {passwordErrors.map((passwordError, index) => (
+                  <li key={index}>{passwordError}</li>
                 ))}
                 {loginError && (
                   <li className="font-bold">
