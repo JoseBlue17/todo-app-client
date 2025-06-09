@@ -10,20 +10,21 @@ export function useLogin() {
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
     const cleanedEmail = email.trim().toLowerCase();
     const cleanedPassword = password.trim();
 
-    // Password validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
     if (!cleanedEmail || !cleanedPassword) {
       setGeneralError('All fields are required.');
       return;
     }
     if (!passwordRegex.test(cleanedPassword)) {
-      setGeneralError('Password must be at least 6 characters, contain one uppercase letter, one lowercase letter, and one number.');
+      setGeneralError(
+        'Password must be at least 6 characters, contain one uppercase letter, one lowercase letter, and one number.',
+      );
       return;
     }
 
@@ -54,7 +55,6 @@ export function useLogin() {
     }
   };
 
-  // Real-time password validation function
   const validatePassword = (value: string) => {
     if (!value) {
       setPasswordErrors([]);
@@ -68,7 +68,6 @@ export function useLogin() {
     setPasswordErrors(errors);
   };
 
-  // Update password and validate in real time
   const handlePasswordChange = (value: string) => {
     setPassword(value);
     validatePassword(value);
