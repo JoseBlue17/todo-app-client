@@ -17,7 +17,7 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
           await authService.getProfile(token);
           setIsAuthenticated(true);
         } catch {
-          // Token inválido o expirado, lo tratamos como no autenticado
+       
           localStorage.removeItem('jwtToken');
           setIsAuthenticated(false);
         }
@@ -28,7 +28,7 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
     checkAuth();
   }, []);
 
-  if (isAuthenticated === null) return null; // O un loader/spinner mientras se verifica
+  if (isAuthenticated === null) return null; 
   if (isAuthenticated) return <Navigate to="/home" replace />;
   return children ? <>{children}</> : <Outlet />;
 };

@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import authService from '../../services/authService';
 
 interface Task {
-  id: number;
+  _id: string;
   title: string;
   description: string;
-  dueDate: string; // Fecha límite
-  category: string; // Color de la categoría (por ejemplo: '#FF0000', 'red')
-  completed: boolean; // Estado de completado
+  dueDate: string; 
+  category: string; 
+  completed: boolean; 
+  userId?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export function useHome() {
@@ -21,8 +24,7 @@ export function useHome() {
         const data = await authService.getTasks();
         console.log('Tareas obtenidas:', data);
 
-        // Asignar color por defecto si category es null o vacío
-        const tasksWithDefaultColor = data.map((task: Task) => ({
+        const tasksWithDefaultColor = data.tasks.map((task: Task) => ({
           ...task,
           category: task.category ? task.category : '#FF0202',
         }));
