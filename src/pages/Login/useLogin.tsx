@@ -34,7 +34,9 @@ export function useLogin() {
       const data = await authService.login(cleanedEmail, cleanedPassword);
       const token = data.token;
 
+      // Guardar solo con el nombre 'jwtToken'
       localStorage.setItem('jwtToken', token);
+
       navigate('/home');
     } catch (err) {
       console.error('Error al hacer login:', err);

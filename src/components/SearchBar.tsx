@@ -6,7 +6,7 @@ type SearchBarProps = {
 export default function SearchBar({ className, placeholder = 'Search tasks' }: SearchBarProps) {
   return (
     <div
-      className={`relative flex items-center border border-[#EFEFEF] rounded-[8px] h-[37px] w-[315px] ${className}`}
+      className={`relative flex items-center border border-[#EFEFEF] rounded-[8px] h-[37px] ${className}`}
     >
       <svg
         className="absolute left-3"
@@ -28,7 +28,7 @@ export default function SearchBar({ className, placeholder = 'Search tasks' }: S
       <input
         type="text"
         placeholder={placeholder}
-        className="flex-grow pl-10 pr-3 bg-transparent outline-none text-gray-700 placeholder-gray-400"
+        className="w-full pl-8 text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400 truncate overflow-hidden"
       />
     </div>
   );
