@@ -38,6 +38,7 @@ const getProfile = async (token: string) => {
 };
 
 export default {
-  login, getProfile,
+  login,
+  getProfile,
   getTasks,
 };
