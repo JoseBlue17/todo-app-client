@@ -8,7 +8,6 @@ const login = async (email: string, password: string) => {
   const response = await axios.post(`${HOME_ENDPOINT}/login`, { email, password });
   const token = response.data.token;
 
-  // Guardar solo con el nombre 'jwtToken'
   localStorage.setItem('jwtToken', token);
 
   return response.data;
@@ -37,8 +36,37 @@ const getProfile = async (token: string) => {
   return response.data;
 };
 
+export type CreateTaskPayload = {
+  title: string;
+  description?: string | null;
+  completed?: boolean;
+  category?: string | null;
+  dueDate?: string | null;
+}
+
+const createTask = async (taskData: CreateTaskPayload) => {
+  const token = localStorage.getItem('jwtToken');
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+
+  const response = await axios.post(`${TASKS_ENDPOINT}/`, taskData, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (response.status !== 201) {
+    throw new Error(response.data.message || 'Failed to create task');
+  }
+
+  return response.data;
+};
+
 export default {
   login,
   getProfile,
   getTasks,
+  createTask,
 };

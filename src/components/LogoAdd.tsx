@@ -1,16 +1,19 @@
-type LogoAdd = {
+type LogoAddProps = {
+  onClick: () => void;
   className?: string;
 };
 
-export default function LogoAdd({ className }: LogoAdd) {
+export default function LogoAdd({ onClick, className }: LogoAddProps) {
   return (
     <svg
+      className={className}
       width="20"
       height="20"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
     >
       <path
         fill-rule="evenodd"

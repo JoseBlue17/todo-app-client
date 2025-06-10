@@ -7,6 +7,9 @@ import SearchBar from '../../components/SearchBar.tsx';
 import LogoAdd from '../../components/LogoAdd.tsx';
 import { useHome } from './useHome';
 import dayjs from 'dayjs';
+import AddTaskForm from '../../components/AddTaskForm';
+import authService from '../../services/authService';
+import type { CreateTaskPayload } from '../../services/authService';
 
 function getDueDateLabel(dueDate: string | Date) {
   const today = dayjs().startOf('day');
@@ -22,12 +25,34 @@ export default function Home() {
   const { tasks, loading, error } = useHome();
   const [checkedTasks, setCheckedTasks] = useState<Record<number, boolean>>({});
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleCheck = (taskId: number) => {
     setCheckedTasks(prev => ({
       ...prev,
       [taskId]: !prev[taskId],
     }));
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCreateTask = async (values: CreateTaskPayload) => {
+    try {
+      await authService.createTask(values);
+      setIsModalVisible(false);
+      // Opcional: Recargar tareas o actualizar el estado de tareas
+      // fetchTasks(); // Si tienes una función para recargar las tareas
+      alert('¡Tarea creada con éxito!');
+    } catch (error) {
+      console.error('Error al crear la tarea:', error);
+      alert('Error al crear la tarea.');
+    }
   };
 
   return (
@@ -59,7 +84,7 @@ export default function Home() {
             {/* Lado derecho */}
             <div className="flex-1 hidden lg:flex items-center gap-3 justify-end">
               <SearchBar className="lg:w-[122px] lg:h-[37px] rounded-[8px] border border-gray-300" />
-              <LogoAdd className="w-[20px] h-[20px]" />
+              <LogoAdd className="w-[20px] h-[20px]" onClick={showModal} />
             </div>
             {/* Lado derecho vacío en mobile para equilibrar */}
             <div className="flex-1 flex items-center justify-end lg:hidden" />
@@ -74,7 +99,7 @@ export default function Home() {
           {/* Menú lateral */}
           {menuOpen && (
             <div className="absolute top-[60px] lg:top-14 left-4 lg:left-0 bg-white rounded-[8px] shadow-lg flex flex-col z-30 py-2 px-4">
-              <AddTask />
+              <AddTask className="cursor-pointer" onClick={showModal} />
               <SettingsLogo className="mt-4" />
               <LogOut className="mt-4" />
             </div>
@@ -83,7 +108,7 @@ export default function Home() {
           {/* Barra búsqueda mobile: izquierda y derecha */}
           <div className="lg:hidden absolute top-[80px] left-0 right-0 w-full flex justify-between items-center px-4">
             <SearchBar className="h-[37px] w-[calc(100%-40px)] rounded-[8px] border border-gray-300" />
-            <LogoAdd className="w-[20px] h-[20px]  text-[#C18EC7]" />
+            <LogoAdd className="w-[20px] h-[20px]  text-[#C18EC7]" onClick={showModal} />
           </div>
 
           {/* Lista de tareas */}
@@ -152,6 +177,8 @@ export default function Home() {
                 </div>
               ))}
           </section>
+
+          <AddTaskForm visible={isModalVisible} onOk={handleCreateTask} onCancel={handleCancel} />
         </div>
       </div>
     </div>
