@@ -8,7 +8,7 @@ const login = async (email: string, password: string) => {
   const response = await axios.post(`${HOME_ENDPOINT}/login`, { email, password });
   const token = response.data.token;
 
-  // Guardar solo con el nombre 'jwtToken'
+ 
   localStorage.setItem('jwtToken', token);
 
   return response.data;
