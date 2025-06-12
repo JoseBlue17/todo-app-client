@@ -11,7 +11,7 @@ export default function Login() {
     'w-full px-3 py-2 border border-gray-500 rounded focus:outline-none placeholder:text-gray-500 placeholder:text-sm placeholder:font-semibold placeholder:font-lato';
 
   return (
-    <section className="min-h-screen flex font-lato overflow-hidden">
+    <section className="min-h-screen flex overflow-hidden">
       <div className="hidden md:flex md:w-1/2 min-h-screen relative overflow-hidden bg-gradient-to-r from-[#F8BBC2] to-[#A074CA]">
         <div className="absolute inset-0">
           <img
