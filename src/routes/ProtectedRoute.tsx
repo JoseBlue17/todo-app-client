@@ -26,7 +26,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     checkAuth();
   }, []);
 
-  if (isValid === null) return null; // O un loader/spinner
+  if (isValid === null) return null;
   if (!isValid) return <Navigate to="/login" replace />;
   return children ? <>{children}</> : <Outlet />;
 };

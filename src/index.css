@@ -9,6 +9,7 @@ body,
   box-sizing: border-box;
   width: 100%;
   min-height: 100dvh;
+  font-family: var(--font-lato);
 }
 :root {
   --font-lato: "Lato", sans-serif; 
