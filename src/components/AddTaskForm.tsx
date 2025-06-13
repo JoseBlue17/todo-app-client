@@ -104,7 +104,7 @@ const TaskFormModal: React.FC<TaskFormModalProps> = ({ visible, onCancel, onOk }
           <Input style={{ width: '367px', height: '37px' }} />
         </Form.Item>
 
-        <Form.Item name="dueDate" label="Due Date">
+        <Form.Item name="dueDate" label="Due Date"style={{ width: '367px' }}>
           <DatePicker className={inputSizeClass} placeholder="DD/MM/YYYY" />
         </Form.Item>
 
