@@ -1,0 +1,19 @@
+import axios from 'axios';
+
+const BASE_URL = import.meta.env.VITE_API_URL;
+const TASKS_ENDPOINT = `${BASE_URL}/tasks`;
+
+export const taskService = {
+  getTasks: async () => {
+    const token = localStorage.getItem('jwtToken');
+    if (!token) {
+      throw new Error('Token no encontrado');
+    }
+    const response = await axios.get(TASKS_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  },
+};

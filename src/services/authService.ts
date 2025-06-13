@@ -2,30 +2,12 @@ import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const HOME_ENDPOINT = `${BASE_URL}/users`;
-const TASKS_ENDPOINT = `${BASE_URL}/tasks`;
 
 const login = async (email: string, password: string) => {
   const response = await axios.post(`${HOME_ENDPOINT}/login`, { email, password });
   const token = response.data.token;
 
- 
   localStorage.setItem('jwtToken', token);
-
-  return response.data;
-};
-
-const getTasks = async () => {
-  const token = localStorage.getItem('jwtToken');
-
-  if (!token) {
-    throw new Error('Token no encontrado');
-  }
-
-  const response = await axios.get(TASKS_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
 
   return response.data;
 };
@@ -40,5 +22,4 @@ const getProfile = async (token: string) => {
 export default {
   login,
   getProfile,
-  getTasks,
 };
