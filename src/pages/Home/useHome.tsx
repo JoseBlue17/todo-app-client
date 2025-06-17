@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'; 
 import { taskService } from '../../services/taskService';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 
-export type TaskUI = {
+export type Task = {
   _id: string;
   title: string;
   description: string;
@@ -12,8 +12,18 @@ export type TaskUI = {
   category: string;
 };
 
+
+type TaskFromApi = {
+  _id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  completed: boolean;
+  category?: string;
+};
+
 export function useHome() {
-  const [tasks, setTasks] = useState<TaskUI[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -23,16 +33,7 @@ export function useHome() {
         const data = await taskService.getTasks();
         console.log('Tareas obtenidas:', data);
 
-        type TaskFromApi = {
-          _id: string;
-          title: string;
-          description: string;
-          dueDate: string;
-          completed: boolean;
-          category?: string;
-        };
-
-        const tasksUI: TaskUI[] = data.tasks.map((task: TaskFromApi) => ({
+        const tasksUI: Task[] = data.tasks.map((task: TaskFromApi) => ({
           ...task,
           dueDateLabel: getDueDateLabel(task.dueDate),
           dueHourLabel: getDueHourLabel(task.dueDate),
