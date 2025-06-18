@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import authService from '../services/authService';
+import authService from '../services/auth-service';
 
 export function useVerifyToken() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);

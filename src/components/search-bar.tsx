@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SearchBarIcon from './SearchBarIcon';
+import SearchBarIcon from './search-bar-icon';
 
 interface SearchBarProps {
   className?: string;

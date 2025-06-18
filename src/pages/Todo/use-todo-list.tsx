@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'; 
-import { taskService } from '../../services/taskService';
+import { taskService } from '../../services/task-service';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 
 export type Task = {
@@ -22,7 +22,7 @@ type TaskFromApi = {
   category?: string;
 };
 
-export function useHome() {
+export function useTodo() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

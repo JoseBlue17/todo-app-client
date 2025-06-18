@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from '../pages/Login/Login';
-import Home from '../pages/Home/Home';
-import ProtectedRoute from './ProtectedRoute';
-import PublicRoute from './PublicRoute';
+import Login from '../pages/Login/login';
+import Home from '../pages/Todo/todos';
+import ProtectedRoute from './protected-route';
+import PublicRoute from './public-route';
 
 export default function AppRouter() {
   return (

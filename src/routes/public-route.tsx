@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useVerifyToken } from '../hooks/useVerifyToken';
+import { useVerifyToken } from '../hooks/use-verify-token';
 
 interface PublicRouteProps {
   children?: React.ReactNode;
