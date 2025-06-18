@@ -13,10 +13,9 @@ export default function TaskList({ tasks, handleCheck }: TaskListProps) {
         <div
           key={task._id}
           className={cn(
-            'mb-5',
+            'py-4',
             'border-b',
             'border-[#EFEFEF]',
-            'pb-4',
             '-mx-4',
             'px-4',
             'lg:px-6',
@@ -24,7 +23,7 @@ export default function TaskList({ tasks, handleCheck }: TaskListProps) {
             index === 0 && 'pt-5 lg:pt-0',
           )}
         >
-          <div className="flex items-start gap-4 ">
+          <div className="flex items-center gap-4 ">
             <input
               type="checkbox"
               checked={task.checked}
@@ -41,7 +40,7 @@ export default function TaskList({ tasks, handleCheck }: TaskListProps) {
               style={!task.checked ? { backgroundColor: task.category } : undefined}
             />
             <div className="flex-1">
-              <div className="hidden lg:grid lg:grid-cols-[2fr_1.5fr_3fr_1fr] lg:gap-4 items-center">
+              <div className="hidden lg:grid lg:grid-cols-[1.3fr_1.5fr_3.8fr_0.8fr] lg:gap-5 items-center">
                 <p
                   className={cn(
                     'text-[14px]',
@@ -61,7 +60,7 @@ export default function TaskList({ tasks, handleCheck }: TaskListProps) {
                 >
                   {task.dueDateLabel}
                 </p>
-                <p className="text-[14px] font-normal leading-[120%] text-[#0620618A] truncate">
+                <p className="text-[14px] font-normal leading-[120%] text-[#0620618A]">
                   {task.description}
                 </p>
                 <span className="text-[14px] font-medium leading-[120%] tracking-[-0.01em] text-[#0620618A] text-right">

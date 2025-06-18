@@ -17,7 +17,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className = '', placeholder = 'Se
     <div
       className={`flex items-center border border-[#EFEFEF] rounded-[8px] h-[37px] px-3 bg-white ${className}`}
     >
-      <SearchBarIcon className="mr-2" />
+      <SearchBarIcon className="mr-1.5" />
       <input
         type="text"
         value={value}
