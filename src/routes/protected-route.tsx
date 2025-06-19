@@ -7,27 +7,27 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [isValidAuthentication, setIsValidAuthentication] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('jwtToken');
       if (!token) {
-        setIsValid(false);
+        setIsValidAuthentication(false);
         return;
       }
       try {
         await authService.getProfile(token);
-        setIsValid(true);
+        setIsValidAuthentication(true);
       } catch {
-        setIsValid(false);
+        setIsValidAuthentication(false);
       }
     };
     checkAuth();
   }, []);
 
-  if (isValid === null) return null;
-  if (!isValid) return <Navigate to="/login" replace />;
+  if (isValidAuthentication === null) return null;
+  if (!isValidAuthentication) return <Navigate to="/login" replace />;
   return children ? <>{children}</> : <Outlet />;
 };
 
