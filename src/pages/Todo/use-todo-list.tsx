@@ -1,47 +1,28 @@
-import { useEffect, useState } from 'react'; 
-import { taskService } from '../../services/task-service';
+import { useEffect, useState } from 'react';
+import { todoService } from '../../services/todo-service';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 
-export type Task = {
+export type Todo = {
   _id: string;
   title: string;
   description: string;
-  dueDateLabel: string;
-  dueHourLabel: string;
-  checked: boolean;
-  category: string;
-};
-
-
-type TaskFromApi = {
-  _id: string;
-  title: string;
-  description: string;
+  category?: string;
   dueDate: string;
   completed: boolean;
-  category?: string;
 };
 
 export function useTodo() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchTodos = async () => {
       try {
-        const data = await taskService.getTasks();
-        console.log('Tareas obtenidas:', data);
-
-        const tasksUI: Task[] = data.tasks.map((task: TaskFromApi) => ({
-          ...task,
-          dueDateLabel: getDueDateLabel(task.dueDate),
-          dueHourLabel: getDueHourLabel(task.dueDate),
-          checked: !!task.completed,
-          category: task.category?.trim() ? task.category : '#FF0202',
-        }));
-
-        setTasks(tasksUI);
+        const response = await todoService.getTodos();
+        const todos = Array.isArray(response) ? response : response.tasks || [];
+        console.log(`Tareas cargadas: ${todos.length} tareas`);
+        setTodos(todos);
       } catch (error) {
         console.error('Error al obtener tareas:', error);
         setError('No se pudieron cargar las tareas.');
@@ -50,19 +31,26 @@ export function useTodo() {
       }
     };
 
-    fetchTasks();
+    fetchTodos();
   }, []);
 
-  const handleCheck = (taskId: string) => {
-    setTasks(prev =>
-      prev.map(task => (task._id === taskId ? { ...task, checked: !task.checked } : task)),
+  const handleCheck = (todoId: string) => {
+    setTodos(prev =>
+      prev.map(todo => (todo._id === todoId ? { ...todo, completed: !todo.completed } : todo)),
     );
   };
 
+  const getTodoWithLabels = (todo: Todo) => ({
+    ...todo,
+    dueDateLabel: getDueDateLabel(todo.dueDate),
+    dueHourLabel: getDueHourLabel(todo.dueDate),
+  });
+
   return {
-    tasks,
+    todos,
     loading,
     error,
     handleCheck,
+    getTodoWithLabels,
   };
 }
