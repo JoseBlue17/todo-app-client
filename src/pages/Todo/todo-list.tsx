@@ -28,7 +28,7 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
               index === 0 && 'pt-5 lg:pt-0',
             )}
           >
-            <div className="flex items-center gap-4 ">
+            <div className="flex lg:items-center items-start gap-4 ">
               <input
                 type="checkbox"
                 checked={todo.completed}
@@ -72,7 +72,7 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
                     {dueHourLabel}
                   </span>
                 </div>
-                <div className="lg:hidden flex flex-col gap-1">
+                <div className="lg:hidden flex flex-col gap-2">
                   <div className="flex flex-row justify-between items-start">
                     <p
                       className={cn(
