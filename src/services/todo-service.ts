@@ -3,8 +3,8 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_URL;
 const TASKS_ENDPOINT = `${BASE_URL}/tasks?size=100`;
 
-export const taskService = {
-  getTasks: async () => {
+export const todoService = {
+  getTodos: async () => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
       throw new Error('Token no encontrado');

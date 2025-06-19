@@ -1,9 +1,9 @@
 import { useTodo } from './use-todo-list.tsx';
-import TaskList from './todo-list.tsx';
 import HeaderTodo from '../../components/header-todo.tsx';
+import TodoList from './todo-list.tsx';
 
 export default function Todo() {
-  const { tasks, loading, error, handleCheck } = useTodo();
+  const { todos, loading, error, handleCheck } = useTodo();
 
   return (
     <div className="relative w-full min-h-screen">
@@ -18,10 +18,10 @@ export default function Todo() {
           <section className="lg:pt-4 px-0 lg:pr-3 flex flex-col gap-y-0 overflow-y-auto overflow-x-hidden flex-1 lg:max-h-[580px]">
             {loading && <p>Cargando tareas...</p>}
             {error && <p className="text-red-600">{error}</p>}
-            {!loading && !error && tasks.length === 0 && (
+            {!loading && !error && todos.length === 0 && (
               <p className="text-gray-500">No hay tareas aún.</p>
             )}
-            {!loading && !error && <TaskList tasks={tasks} handleCheck={handleCheck} />}
+            {!loading && !error && <TodoList todos={todos} handleCheck={handleCheck} />}
           </section>
         </div>
       </div>
