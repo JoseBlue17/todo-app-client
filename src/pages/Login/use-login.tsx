@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import authService from '../../services/authService';
+import authService from '../../services/auth-service';
 
 export function useLogin() {
   const [email, setEmail] = useState('');
@@ -35,6 +35,7 @@ export function useLogin() {
       const token = data.token;
 
       localStorage.setItem('jwtToken', token);
+
       navigate('/home');
     } catch (err) {
       console.error('Error al hacer login:', err);

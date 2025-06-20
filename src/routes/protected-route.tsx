@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import authService from '../services/authService';
+import authService from '../services/auth-service';
 
 interface ProtectedRouteProps {
   children?: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [isValidAuthentication, setIsValidAuthentication] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('jwtToken');
       if (!token) {
-        setIsValid(false);
+        setIsValidAuthentication(false);
         return;
       }
       try {
         await authService.getProfile(token);
-        setIsValid(true);
+        setIsValidAuthentication(true);
       } catch {
-        setIsValid(false);
+        setIsValidAuthentication(false);
       }
     };
     checkAuth();
   }, []);
 
-  if (isValid === null) return null; // O un loader/spinner
-  if (!isValid) return <Navigate to="/login" replace />;
+  if (isValidAuthentication === null) return null;
+  if (!isValidAuthentication) return <Navigate to="/login" replace />;
   return children ? <>{children}</> : <Outlet />;
 };
 

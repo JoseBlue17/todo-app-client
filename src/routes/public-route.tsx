@@ -1,17 +1,16 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useVerifyToken } from '../hooks/use-verify-token';
 
 interface PublicRouteProps {
   children?: React.ReactNode;
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('jwtToken');
+  const { isAuthenticated, isVerifyingToken } = useVerifyToken();
 
-  if (isAuthenticated) {
-    return <Navigate to="/home" replace />;
-  }
-
+  if (isVerifyingToken) return null;
+  if (isAuthenticated) return <Navigate to="/home" replace />;
   return children ? <>{children}</> : <Outlet />;
 };
 
