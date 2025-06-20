@@ -25,7 +25,7 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({
     const bubble = gridRef.current?.children[selectedIndex] as HTMLElement;
     const container = gridRef.current?.getBoundingClientRect();
     if (bubble && container) {
-      // ...existing code...
+      bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }, [selectedColor, colorOptions]);
 

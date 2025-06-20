@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
-export function getDueDateLabel(dueDate: string | Date) {
+export function getDueDateLabel(dueDate: string | Date | undefined) {
+  if (!dueDate) return 'No Due Date';
   const today = dayjs().startOf('day');
   const due = dayjs(dueDate).startOf('day');
   const diff = due.diff(today, 'day');
@@ -10,6 +11,7 @@ export function getDueDateLabel(dueDate: string | Date) {
   return `Due On ${dayjs(dueDate).format('MMM DD, YYYY')}`;
 }
 
-export function getDueHourLabel(dueDate: string | Date) {
+export function getDueHourLabel(dueDate: string | Date | undefined) {
+  if (!dueDate) return '';
   return dayjs(dueDate).format('hh:mm A');
 }
