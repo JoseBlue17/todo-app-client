@@ -1,0 +1,16 @@
+export const colorOptions = [
+  { hex: '#FF0202', name: 'RED', label: 'Urgent' },
+  { hex: '#E81E63', name: 'PINK', label: 'High' },
+  { hex: '#9B27AF', name: 'PURPLE', label: 'Important' },
+  { hex: '#673AB6', name: 'DEEP PURPLE', label: 'Backlog' },
+  { hex: '#3F51B4', name: 'INDIGO', label: 'Later' },
+  { hex: '#2195F2', name: 'BLUE', label: 'Optional' },
+  { hex: '#00BBD3', name: 'CYAN', label: 'Info' },
+  { hex: '#009587', name: 'TEAL', label: 'Clean' },
+  { hex: '#4CAE50', name: 'GREEN', label: 'Done' },
+  { hex: '#8AC24A', name: 'LIGHT GREEN', label: 'Low' },
+  { hex: '#CCDB39', name: 'LIME', label: 'Mid' },
+  { hex: '#FEEA3B', name: 'YELLOW', label: 'Warning' },
+  { hex: '#795548', name: 'BROWN', label: 'Idea' },
+  { hex: '#9D9D9D', name: 'GRAY', label: 'Neutral' },
+];
