@@ -1,36 +1,28 @@
 import { useEffect, useState } from 'react';
 import { todoService } from '../../services/todo-list-service';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
-
-export type Todo = {
-  _id: string;
-  title: string;
-  description: string;
-  category?: string;
-  dueDate: string;
-  completed: boolean;
-};
+import type { Todo } from '../../types/todo.types';
 
 export function useTodo() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const response = await todoService.getTodos();
-        const todos = Array.isArray(response) ? response : response.tasks || [];
-        console.log(`Tareas cargadas: ${todos.length} tareas`);
-        setTodos(todos);
-      } catch (error) {
-        console.error('Error al obtener tareas:', error);
-        setError('No se pudieron cargar las tareas.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchTodos = async () => {
+    try {
+      const response = await todoService.getTodos();
+      const todos = Array.isArray(response) ? response : response.tasks || [];
+      console.log(`Tareas cargadas: ${todos.length} tareas`);
+      setTodos(todos);
+    } catch (error) {
+      console.error('Error al obtener tareas:', error);
+      setError('No se pudieron cargar las tareas.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchTodos();
   }, []);
 
@@ -52,5 +44,6 @@ export function useTodo() {
     error,
     handleCheck,
     getTodoWithLabels,
+    refetchTodos: fetchTodos,
   };
 }
