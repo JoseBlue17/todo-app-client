@@ -8,7 +8,7 @@ export function getDueDateLabel(dueDate: string | Date | undefined) {
   if (diff === 0) return 'Due Today';
   if (diff === 1) return 'Due Tomorrow';
   if (diff === 2) return 'Due In 2 Days';
-  return `Due On ${dayjs(dueDate).format('MMM DD, YYYY')}`;
+  return `Due On ${dayjs(dueDate).format('DD/MM/YYYY')}`;
 }
 
 export function getDueHourLabel(dueDate: string | Date | undefined) {

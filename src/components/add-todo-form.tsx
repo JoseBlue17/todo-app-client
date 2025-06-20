@@ -40,7 +40,11 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({
       </Form.Item>
 
       <Form.Item name="dueDate" label="Due Date" style={{ width: '367px' }}>
-        <DatePicker className={inputSizeClass} placeholder="DD/MM/YYYY" />
+        <DatePicker
+          className={inputSizeClass}
+          placeholder="DD/MM/YYYY"
+          format="DD/MM/YYYY"
+        />
       </Form.Item>
 
       <Form.Item name="description" label="Description">
