@@ -1,16 +1,18 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
-import dayjs from 'dayjs';
+
 import AddTodoForm from './add-todo-form';
 import ModalCloseIcon from './modal-close-icon';
 import { colorOptions } from './color-options';
-import type { Todo } from '../pages/Todo/use-todo-list';
+import type { CreateTodoData } from '../types/todo.types';
+
+
 import type { FormInstance } from 'antd/es/form';
 
 interface AddTodoModalProps {
   visible: boolean;
   onCancel: () => void;
-  onOk: (values: Todo) => void;
+  onOk: (values: CreateTodoData) => void;
   form: FormInstance;
   selectedColor: (typeof colorOptions)[0];
   setSelectedColor: (color: (typeof colorOptions)[0]) => void;
@@ -33,15 +35,13 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
         form.resetFields();
         const dueDateValue =
           values.dueDate && typeof values.dueDate === 'object' && 'toDate' in values.dueDate
-            ? dayjs((values.dueDate as { toDate: () => Date }).toDate()).toISOString()
-            : '';
-        const todo: Todo = {
-          _id: '',
+            ? (values.dueDate as { toDate: () => Date }).toDate()
+            : undefined;
+        const todo: CreateTodoData = {
           title: values.title || '',
           description: values.description || '',
           dueDate: dueDateValue,
           category: selectedColor.hex,
-          completed: false,
         };
         onOk(todo);
       })
