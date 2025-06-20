@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MenuIcon from './menu-icon';
 import SearchBar from './search-bar';
 import AddIcon from './add-icon';
-import AddTodoModal from './AddTodoModal';
+import AddTodoModal from './add-todo-modal';
 import { useAddTodoModal } from './useAddTodoModal';
 import { useCreateTodo } from './useCreateTodo';
 import type { Todo } from '../pages/Todo/use-todo-list';
