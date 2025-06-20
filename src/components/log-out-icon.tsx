@@ -1,8 +1,8 @@
-type LogOutProps = {
+type LogOutIconProps = {
   className?: string;
 };
 
-export default function SettingsLogo({ className }: LogOutProps) {
+export default function LogOutIcon({ className }: LogOutIconProps) {
   return (
     <svg
       width="14"

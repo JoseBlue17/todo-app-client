@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import authService from '../../services/authService';
+import authService from '../../services/auth-service';
 
 export function useLogin() {
   const [email, setEmail] = useState('');
@@ -34,7 +34,6 @@ export function useLogin() {
       const data = await authService.login(cleanedEmail, cleanedPassword);
       const token = data.token;
 
-      // Guardar solo con el nombre 'jwtToken'
       localStorage.setItem('jwtToken', token);
 
       navigate('/home');

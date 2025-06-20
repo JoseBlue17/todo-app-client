@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import authService from '../services/authService';
+import { useEffect, useState } from 'react';
+import authService from '../services/auth-service';
 
-interface PublicRouteProps {
-  children?: React.ReactNode;
-}
-
-const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+export function useVerifyToken() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isVerifyingToken, setIsVerifyingToken] = useState(true);
 
   useEffect(() => {
     const checkAuth = async () => {
+      setIsVerifyingToken(true);
       const token = localStorage.getItem('jwtToken');
       if (token) {
         try {
           await authService.getProfile(token);
           setIsAuthenticated(true);
         } catch {
-       
           localStorage.removeItem('jwtToken');
           setIsAuthenticated(false);
         }
       } else {
         setIsAuthenticated(false);
       }
+      setIsVerifyingToken(false);
     };
     checkAuth();
   }, []);
 
-  if (isAuthenticated === null) return null; 
-  if (isAuthenticated) return <Navigate to="/home" replace />;
-  return children ? <>{children}</> : <Outlet />;
-};
-
-export default PublicRoute;
+  return { isAuthenticated, isVerifyingToken };
+}
