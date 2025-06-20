@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { todoService } from '../../services/todo-service';
+import { todoService } from '../../services/todo-list-service';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 
 export type Todo = {
