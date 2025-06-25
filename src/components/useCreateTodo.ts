@@ -1,10 +1,10 @@
 import { useRef } from 'react';
-import type { CreateTodoData } from '../types/todo.types';
+import type { TodoData } from '../types/todo.types';
 import { createTodo } from '../services/create-todo-service';
 
 export function useCreateTodo({ fetchTodos, setToast }: { fetchTodos: () => Promise<void>, setToast: (msg: string | null) => void }) {
     const toastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const handleCreateTodo = async (values: CreateTodoData) => {
+    const handleCreateTodo = async (values: TodoData) => {
     try {
       console.log('Intentando crear tarea con datos:', JSON.stringify(values, null, 2));
       await createTodo.createTodo(values);

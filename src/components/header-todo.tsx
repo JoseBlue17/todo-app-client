@@ -5,7 +5,7 @@ import AddIcon from './add-icon';
 import AddTodoModal from './add-todo-modal';
 import { useAddTodoModal } from './useAddTodoModal';
 import { useCreateTodo } from './useCreateTodo';
-import type { Todo } from '../pages/Todo/use-todo-list';
+import type { TodoData } from '../types/todo.types';
 
 export default function HeaderTodo({
   fetchTodo,
@@ -15,13 +15,13 @@ export default function HeaderTodo({
   setToast: (msg: string | null) => void;
 }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const { form, selectedColor, setSelectedColor } = useAddTodoModal();
+  const { selectedColor, setSelectedColor } = useAddTodoModal();
   const { handleCreateTodo: createTodoHandler } = useCreateTodo({
     fetchTodos: fetchTodo,
     setToast,
   });
 
-  const handleCreateTodo = async (todo: Todo) => {
+  const handleCreateTodo = async (todo: TodoData) => {
     await createTodoHandler(todo);
     setModalVisible(false);
   };
@@ -65,7 +65,6 @@ export default function HeaderTodo({
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         onOk={handleCreateTodo}
-        form={form}
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />

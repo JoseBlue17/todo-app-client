@@ -1,4 +1,4 @@
-import type { Todo } from './use-todo-list';
+import type { Todo } from '../../types/todo.types';
 import cn from '../../helpers/cn';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 

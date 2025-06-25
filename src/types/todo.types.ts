@@ -7,7 +7,7 @@ export type Todo = {
   completed: boolean;
 };
 
-export type CreateTodoData = {
+export type TodoData = {
   title: string;
   description?: string;
   category?: string;
