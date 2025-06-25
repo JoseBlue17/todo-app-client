@@ -13,22 +13,6 @@ interface ColorPickerBoxProps {
   showInfo?: boolean;
 }
 
-const ColorPickerBoxSVG: React.FC = () => (
-  <svg
-    width="367"
-    height="114"
-    viewBox="0 0 367 114"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute top-0 left-0 z-0"
-  >
-    <path
-      d="M120.998 1.77441C121.53 1.21774 122.388 1.15853 122.988 1.61426L123.105 1.71289L130.371 8.48047C130.649 8.73895 131.014 8.88281 131.394 8.88281H361C364.038 8.88281 366.5 11.3452 366.5 14.3828V108C366.5 111.038 364.038 113.5 361 113.5H6C2.96243 113.5 0.5 111.038 0.5 108V14.3828C0.5 11.3452 2.96243 8.88281 6 8.88281H113.572C113.931 8.88276 114.276 8.75404 114.546 8.52344L114.657 8.41797L120.998 1.77441Z"
-      stroke="#CBD5E1"
-    />
-  </svg>
-);
-
 const ColorPickerBox: React.FC<ColorPickerBoxProps> = ({
   colorOptions,
   selectedColor,
@@ -40,7 +24,7 @@ const ColorPickerBox: React.FC<ColorPickerBoxProps> = ({
     <div className="w-full mt-1 flex flex-col ">
       {showInfo && (
         <div
-          className="border border-[#ACAAAA] rounded-md px-4 py-2 mb-3 flex items-center gap-3 bg-white"
+          className="border border-[#ACAAAA] rounded-md px-4 py-2 mb-3 flex items-center gap-3 bg-white max-w-full"
           style={{ userSelect: 'none' }}
         >
           <div className="w-5 h-5 rounded" style={{ backgroundColor: selectedColor.hex }}></div>
@@ -49,10 +33,23 @@ const ColorPickerBox: React.FC<ColorPickerBoxProps> = ({
           <span className="text-sm text-gray-400">{selectedColor.label}</span>
         </div>
       )}
-      <div className="relative flex flex-col items-center w-[367px] h-[114px]">
-        <ColorPickerBoxSVG />
+      <div className="relative flex flex-col items-center w-full max-w-[367px] sm:max-w-full h-[114px]">
+        <svg
+          width="100%"
+          height="114"
+          viewBox="0 0 367 114"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 left-0 z-0 w-full h-[114px]"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M120.998 1.77441C121.53 1.21774 122.388 1.15853 122.988 1.61426L123.105 1.71289L130.371 8.48047C130.649 8.73895 131.014 8.88281 131.394 8.88281H361C364.038 8.88281 366.5 11.3452 366.5 14.3828V108C366.5 111.038 364.038 113.5 361 113.5H6C2.96243 113.5 0.5 111.038 0.5 108V14.3828C0.5 11.3452 2.96243 8.88281 6 8.88281H113.572C113.931 8.88276 114.276 8.75404 114.546 8.52344L114.657 8.41797L120.998 1.77441Z"
+            stroke="#CBD5E1"
+          />
+        </svg>
         <div
-          className="grid grid-cols-7 gap-3 px-[10px] pt-[21px] pb-[13px] w-full h-full box-border relative z-10"
+          className="grid grid-cols-7 gap-3 px-[10px] pt-[21px] pb-[13px] w-full h-full box-border relative z-10 max-w-full overflow-x-auto justify-items-center items-center"
           ref={gridRef}
         >
           {colorOptions.map(color => (
