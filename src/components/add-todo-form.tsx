@@ -1,23 +1,28 @@
-import React, { useRef, useEffect } from 'react';
-import { Form, Input, DatePicker } from 'antd';
-import type { FormInstance } from 'antd/es/form';
+import React, { useRef, useEffect, useState } from 'react';
 import ColorPickerBox from './color-picker-box';
+import CalendarIcon from './calendar-icon';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
 
 export interface AddTodoFormProps {
-  form: FormInstance;
   colorOptions: Array<{ hex: string; name: string; label: string }>;
   selectedColor: { hex: string; name: string; label: string };
   setSelectedColor: (color: { hex: string; name: string; label: string }) => void;
   inputSizeClass?: string;
+  onSubmit: (values: { title: string; description: string; dueDate: string | null }) => void;
 }
 
+const labelsStyle = 'text-[#4A4A4A] font-lato font-semibold block mb-1';
 const AddTodoForm: React.FC<AddTodoFormProps> = ({
-  form,
   colorOptions,
   selectedColor,
   setSelectedColor,
-  inputSizeClass = 'w-[367px] h-[37px]',
+  inputSizeClass,
+  onSubmit,
 }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [dueDate, setDueDate] = useState('');
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,45 +34,79 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({
     }
   }, [selectedColor, colorOptions]);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({
+      title,
+      description,
+      dueDate: dueDate || null,
+    });
+    setTitle('');
+    setDescription('');
+    setDueDate('');
+  };
+
   return (
-    <Form form={form} layout="vertical" name="add_todo_form" initialValues={{ remember: true }}>
-      <Form.Item
-        label="Title"
-        name="title"
-        rules={[{ required: true, message: 'Please enter the task title!' }]}
-      >
-        <Input style={{ width: '367px', height: '37px' }} />
-      </Form.Item>
-
-      <Form.Item name="dueDate" label="Due Date" style={{ width: '367px' }}>
-        <DatePicker
-          className={inputSizeClass}
-          placeholder="DD/MM/YYYY"
-          format="DD/MM/YYYY"
+    <form className="w-full" onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label className={`${labelsStyle} `}>Task</label>
+        <input
+          className={`w-full h-[37px] border border-[#CBD5E1] rounded px-2 ${inputSizeClass || ''}`}
+          type="text"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          required
         />
-      </Form.Item>
-
-      <Form.Item name="description" label="Description">
-        <Input.TextArea style={{ width: '367px', height: '63px' }} />
-      </Form.Item>
-
-      <Form.Item label="Choose color">
-        <div
-          className={`border border-[#ACAAAA] rounded-md px-4 py-2 flex items-center gap-3 bg-white ${inputSizeClass}`}
-          style={{ userSelect: 'none' }}
-        >
+      </div>
+      <div className="mb-4">
+        <label className={`${labelsStyle} `}>Due date </label>
+        <DatePicker
+          className={`w-full h-[37px] text-[#ACAAAA] font-normal border border-[#CBD5E1] rounded px-2 ${
+            inputSizeClass || ''
+          }`}
+          value={dueDate ? dayjs(dueDate) : null}
+          onChange={(_, dateString) => setDueDate(typeof dateString === 'string' ? dateString : '')}
+          format="DD/MM/YYYY"
+          suffixIcon={<CalendarIcon />}
+          allowClear
+          placeholder="DD/MM/YYYY"
+        />
+      </div>
+      <div className="mb-4">
+        <label className={`${labelsStyle} `}>
+          Description <span className="text-[#9D9D9D]">(opcional)</span>
+        </label>
+        <textarea
+          className="w-full h-[63px] resize-none border  border-[#CBD5E1] rounded px-2 py-1"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+        />
+      </div>
+      <div className="mb-4">
+        <label className={`${labelsStyle} `}>Choose color</label>
+        <div className="border border-[#CBD5E1] rounded-md px-4 py-2 flex items-center bg-white w-full mb-2">
           <div className="w-5 h-5 rounded" style={{ backgroundColor: selectedColor.hex }}></div>
-          <span className="text-sm text-gray-700 font-semibold">{selectedColor.name}</span>
-          <span className="text-sm text-gray-500">{selectedColor.hex}</span>
-          <span className="text-sm text-gray-400">{selectedColor.label}</span>
+          {[selectedColor.name, selectedColor.hex.replace('#', ''), selectedColor.label].map(
+            (text, index) => (
+              <span key={index} className="text-sm text-[#ACAAAA] ml-[12px]">
+                {text}
+              </span>
+            ),
+          )}
         </div>
         <ColorPickerBox
           colorOptions={colorOptions}
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
         />
-      </Form.Item>
-    </Form>
+      </div>
+      <button
+        type="submit"
+        className="w-full h-[37px] bg-[#A779CA] text-[#FFFFFF] font-semibold rounded-[6px] text-base mt-2"
+      >
+        Create
+      </button>
+    </form>
   );
 };
 
