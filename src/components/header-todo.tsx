@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { Form } from 'antd';
 import MenuIcon from './menu-icon';
 import SearchBar from './search-bar';
 import AddIcon from './add-icon';
 import AddTodoModal from './add-todo-modal';
 import { useAddTodoModal } from './useAddTodoModal';
 import { useCreateTodo } from './useCreateTodo';
-import type { TodoData } from '../types/todo.types';
+import cn from '../helpers/cn';
+import type { Todo, TodoData } from '../types/todo.types';
 
 export default function HeaderTodo({
   fetchTodo,
@@ -20,9 +22,14 @@ export default function HeaderTodo({
     fetchTodos: fetchTodo,
     setToast,
   });
+  const [form] = Form.useForm();
 
-  const handleCreateTodo = async (todo: TodoData) => {
-    await createTodoHandler(todo);
+  const handleCreateTodo = (todo: Todo) => {
+    const convertedTodo: TodoData = {
+      ...todo,
+      dueDate: todo.dueDate ? new Date(todo.dueDate as string) : undefined,
+    };
+    createTodoHandler(convertedTodo);
     setModalVisible(false);
   };
 
@@ -54,17 +61,20 @@ export default function HeaderTodo({
           <SearchBar />
         </div>
         <button
-          className="flex items-center justify-center  text-white rounded-full w-10 h-10 transition-colors"
+          className={cn(
+            'flex items-center justify-center text-white rounded-full w-10 h-10 transition-colors',
+          )}
           onClick={() => setModalVisible(true)}
           aria-label="Agregar tarea"
         >
-          <AddIcon className="w-[20px] h-[20px]" />
+          <AddIcon />
         </button>
       </div>
       <AddTodoModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         onOk={handleCreateTodo}
+        form={form}
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
