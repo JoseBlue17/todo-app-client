@@ -1,8 +1,38 @@
+import { useState } from 'react';
+import { Form } from 'antd';
 import MenuIcon from './menu-icon';
 import SearchBar from './search-bar';
 import AddIcon from './add-icon';
+import AddTodoModal from './add-todo-modal';
+import { useAddTodoModal } from './useAddTodoModal';
+import { useCreateTodo } from './useCreateTodo';
+import cn from '../helpers/cn';
+import type { Todo, TodoData } from '../types/todo.types';
 
-export default function HeaderTodo() {
+export default function HeaderTodo({
+  fetchTodo,
+  setToast,
+}: {
+  fetchTodo: () => Promise<void>;
+  setToast: (msg: string | null) => void;
+}) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const { selectedColor, setSelectedColor } = useAddTodoModal();
+  const { handleCreateTodo: createTodoHandler } = useCreateTodo({
+    fetchTodos: fetchTodo,
+    setToast,
+  });
+  const [form] = Form.useForm();
+
+  const handleCreateTodo = (todo: Todo) => {
+    const convertedTodo: TodoData = {
+      ...todo,
+      dueDate: todo.dueDate ? new Date(todo.dueDate as string) : undefined,
+    };
+    createTodoHandler(convertedTodo);
+    setModalVisible(false);
+  };
+
   return (
     <div className="w-full flex flex-col lg:flex-row gap-[18px] items-center">
       <div className="hidden lg:flex lg:flex-1 items-center gap-4">
@@ -30,8 +60,24 @@ export default function HeaderTodo() {
         <div className="w-full lg:w-[122px]">
           <SearchBar />
         </div>
-        <AddIcon className="w-[20px] h-[20px]" />
+        <button
+          className={cn(
+            'flex items-center justify-center text-white rounded-full w-10 h-10 transition-colors',
+          )}
+          onClick={() => setModalVisible(true)}
+          aria-label="Agregar tarea"
+        >
+          <AddIcon />
+        </button>
       </div>
+      <AddTodoModal
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        onOk={handleCreateTodo}
+        form={form}
+        selectedColor={selectedColor}
+        setSelectedColor={setSelectedColor}
+      />
     </div>
   );
 }

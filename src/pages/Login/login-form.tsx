@@ -1,4 +1,4 @@
-import ListIcon from '../../components/list-icon';
+import ListIcon from '../../components/list-icon.tsx';
 import { useLogin } from './use-login.tsx';
 
 export function LoginForm() {

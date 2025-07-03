@@ -1,4 +1,4 @@
-import type { Todo } from './use-todo-list';
+import type { Todo } from '../../types/todo.types';
 import cn from '../../helpers/cn';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 
@@ -33,9 +33,12 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => handleCheck(todo._id)}
-                className="w-[16.5px] h-[16.5px] cursor-pointer mt-[1.4px]"
+                className={cn(
+                  'w-[16.5px] h-[16.5px] cursor-pointer mt-[1.4px]',
+                  'accent-[#A175CA]',
+                )}
               />
-              <div
+              <div 
                 className={cn(
                   'w-[20px]',
                   'h-[20px]',

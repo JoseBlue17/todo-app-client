@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axiosInstance from './axios-config';
 
-const BASE_URL = import.meta.env.VITE_API_URL;
-const HOME_ENDPOINT = `${BASE_URL}/users`;
+const HOME_ENDPOINT = '/users';
 
 const login = async (email: string, password: string) => {
-  const response = await axios.post(`${HOME_ENDPOINT}/login`, { email, password });
+  const response = await axiosInstance.post(`${HOME_ENDPOINT}/login`, { email, password });
   const token = response.data.token;
 
   localStorage.setItem('jwtToken', token);
@@ -13,7 +12,7 @@ const login = async (email: string, password: string) => {
 };
 
 const getProfile = async (token: string) => {
-  const response = await axios.get(`${HOME_ENDPOINT}/me`, {
+  const response = await axiosInstance.get(`${HOME_ENDPOINT}/me`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;

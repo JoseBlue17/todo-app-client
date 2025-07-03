@@ -1,7 +1,6 @@
-import axios from 'axios';
+import axiosInstance from './axios-config';
 
-const BASE_URL = import.meta.env.VITE_API_URL;
-const TASKS_ENDPOINT = `${BASE_URL}/tasks?size=100`;
+const TODO_ENDPOINT = '/tasks?size=100';
 
 export const todoService = {
   getTodos: async () => {
@@ -9,7 +8,7 @@ export const todoService = {
     if (!token) {
       throw new Error('Token no encontrado');
     }
-    const response = await axios.get(TASKS_ENDPOINT, {
+    const response = await axiosInstance.get(TODO_ENDPOINT, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
