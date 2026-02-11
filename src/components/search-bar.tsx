@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchBarIcon from './search-bar-icon';
 
 interface SearchBarProps {
   className?: string;
   placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ className = '', placeholder = 'Search Tasks' }) => {
-  const [value, setValue] = useState('');
-
+const SearchBar: React.FC<SearchBarProps> = ({ 
+  className = '', 
+  placeholder = 'Search Tasks',
+  value,
+  onChange
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    onChange(e.target.value);
   };
 
   return (

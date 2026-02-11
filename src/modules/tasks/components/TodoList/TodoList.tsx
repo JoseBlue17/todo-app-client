@@ -1,17 +1,17 @@
-import type { Todo } from '../../types/todo.types';
-import { cn, getDueDateLabel, getDueHourLabel } from '../../helpers';
+import type { Todo } from '@/interfaces';
+import { cn, getDueDateLabel, getDueHourLabel } from '@/helpers';
 
 interface TodoListProps {
   todos: Todo[];
-  handleCheck: (todoId: string) => void;
+  handleCheck: (todoId: string, completed: boolean) => void;
 }
 
 export default function TodoList({ todos, handleCheck }: TodoListProps) {
   return (
     <>
       {todos.map((todo, index) => {
-        const dueDateLabel = getDueDateLabel(todo.dueDate ? (todo.dueDate instanceof Date ? todo.dueDate : new Date(todo.dueDate)) : undefined);
-        const dueHourLabel = getDueHourLabel(todo.dueDate ? (todo.dueDate instanceof Date ? todo.dueDate : new Date(todo.dueDate)) : undefined);
+        const dueDateLabel = getDueDateLabel(todo.dueDate);
+        const dueHourLabel = getDueHourLabel(todo.dueDate);
 
         return (
           <div
@@ -21,23 +21,24 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
               'border-b',
               'border-[#EFEFEF]',
               '-mx-4',
-              'px-4',
-              'lg:px-6',
+              'px-0',
+              'lg:block',
               'lg:-mx-6',
+
               index === 0 && 'pt-5 lg:pt-0',
             )}
           >
-            <div className="flex lg:items-center items-start gap-4 ">
+            <div className={cn('flex lg:items-center items-start gap-4 ', 'px-[17px]', 'lg:px-6')}>
               <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => handleCheck(todo._id)}
+                onChange={() => handleCheck(todo._id, !todo.completed)}
                 className={cn(
                   'w-[16.5px] h-[16.5px] cursor-pointer mt-[1.4px]',
                   'accent-[#A175CA]',
                 )}
               />
-              <div 
+              <div
                 className={cn(
                   'w-[20px]',
                   'h-[20px]',

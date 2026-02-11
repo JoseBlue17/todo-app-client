@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { todoService } from '../../services/todo-list-service';
 import { getDueDateLabel, getDueHourLabel } from '../../helpers/get-due-date-label';
 import type { Todo } from '../../types/todo.types';
@@ -7,6 +7,7 @@ export function useTodo() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchTodos = async () => {
     try {
@@ -32,18 +33,31 @@ export function useTodo() {
     );
   };
 
+  const filteredTodos = useMemo(() => {
+    if (!searchTerm.trim()) return todos;
+    
+    return todos.filter(todo =>
+      todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (todo.description && todo.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (todo.category && todo.category.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  }, [todos, searchTerm]);
+
   const getTodoWithLabels = (todo: Todo) => ({
     ...todo,
-    dueDateLabel: getDueDateLabel(todo.dueDate),
-    dueHourLabel: getDueHourLabel(todo.dueDate),
+    dueDateLabel: getDueDateLabel(todo.dueDate ? (todo.dueDate instanceof Date ? todo.dueDate : new Date(todo.dueDate)) : undefined),
+    dueHourLabel: getDueHourLabel(todo.dueDate ? (todo.dueDate instanceof Date ? todo.dueDate : new Date(todo.dueDate)) : undefined),
   });
 
   return {
-    todos,
+    todos: filteredTodos,
+    allTodos: todos,
     loading,
     error,
     handleCheck,
     getTodoWithLabels,
     refetchTodos: fetchTodos,
+    searchTerm,
+    setSearchTerm,
   };
 }

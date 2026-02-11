@@ -6,15 +6,19 @@ import AddIcon from './add-icon';
 import AddTodoModal from './add-todo-modal';
 import { useAddTodoModal } from './useAddTodoModal';
 import { useCreateTodo } from './useCreateTodo';
-import cn from '../helpers/cn';
+import { cn } from '../helpers';
 import type { Todo, TodoData } from '../types/todo.types';
 
 export default function HeaderTodo({
   fetchTodo,
   setToast,
+  searchTerm,
+  setSearchTerm,
 }: {
   fetchTodo: () => Promise<void>;
   setToast: (msg: string | null) => void;
+  searchTerm: string;
+  setSearchTerm: (value: string) => void;
 }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { selectedColor, setSelectedColor } = useAddTodoModal();
@@ -58,7 +62,10 @@ export default function HeaderTodo({
 
       <div className="flex flex-row lg:flex-1 w-full lg:w-auto gap-3 lg:mt-0 justify-end items-center">
         <div className="w-full lg:w-[122px]">
-          <SearchBar />
+          <SearchBar 
+            value={searchTerm}
+            onChange={setSearchTerm}
+          />
         </div>
         <button
           className={cn(
