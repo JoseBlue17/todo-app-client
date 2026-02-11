@@ -1,0 +1,43 @@
+type ListIconProps = {
+  className?: string;
+};
+
+export default function ListIcon({ className }: ListIconProps) {
+  return (
+    <svg
+      width="71"
+      height="67"
+      viewBox="0 0 71 67"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M22.6667 1H51.5556V11.8333H22.6667V1ZM22.6667 28.0833H58.7778V38.9167H22.6667V28.0833ZM22.6667 55.1667H69.6111V66H22.6667V55.1667Z"
+        fill="#C18EC7"
+        stroke="#C18EC7"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M4.61111 10.0277C6.60547 10.0277 8.22222 8.41099 8.22222 6.41662C8.22222 4.42226 6.60547 2.80551 4.61111 2.80551C2.61675 2.80551 1 4.42226 1 6.41662C1 8.41099 2.61675 10.0277 4.61111 10.0277Z"
+        fill="#C18EC7"
+        stroke="#C18EC7"
+        strokeWidth="2"
+      />
+      <path
+        d="M4.61111 37.1111C6.60547 37.1111 8.22222 35.4944 8.22222 33.5C8.22222 31.5057 6.60547 29.8889 4.61111 29.8889C2.61675 29.8889 1 31.5057 1 33.5C1 35.4944 2.61675 37.1111 4.61111 37.1111Z"
+        fill="#C18EC7"
+        stroke="#C18EC7"
+        strokeWidth="2"
+      />
+      <path
+        d="M4.61111 64.1945C6.60547 64.1945 8.22222 62.5777 8.22222 60.5834C8.22222 58.589 6.60547 56.9723 4.61111 56.9723C2.61675 56.9723 1 58.589 1 60.5834C1 62.5777 2.61675 64.1945 4.61111 64.1945Z"
+        fill="#C18EC7"
+        stroke="#C18EC7"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
