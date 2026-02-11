@@ -853,6 +853,18 @@
     "@tailwindcss/oxide" "4.1.8"
     tailwindcss "4.1.8"
 
+"@tanstack/query-core@5.90.20":
+  version "5.90.20"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.90.20.tgz#e12128e39210715d4ce4fb299c33498ac297771e"
+  integrity sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==
+
+"@tanstack/react-query@^5.90.21":
+  version "5.90.21"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.90.21.tgz#e0eb40831a76510be438109435b8807ef63ab1b9"
+  integrity sha512-0Lu6y5t+tvlTJMTO7oh5NSpJfpg/5D41LlThfepTixPYkJ0sE2Jj0m0f6yYqujBwIXlId87e234+MxG3D3g7kg==
+  dependencies:
+    "@tanstack/query-core" "5.90.20"
+
 "@tybys/wasm-util@^0.9.0":
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/@tybys/wasm-util/-/wasm-util-0.9.0.tgz#3e75eb00604c8d6db470bf18c37b7d984a0e3355"
@@ -2655,7 +2667,7 @@ to-regex-range@^5.0.1:
     react-dom "^18.2.0"
     react-router-dom "^7.6.0"
     tailwindcss "^4.1.7"
-    todo-app.client "file:../../../Users/PC/AppData/Local/Yarn/Cache/v6/npm-todo-app-client-0.0.0-018ce141-dee5-4135-88e6-1d87b8dc61f9-1770828068317/node_modules/todo-app.client"
+    todo-app.client "file:../../../Users/PC/AppData/Local/Yarn/Cache/v6/npm-todo-app-client-0.0.0-7597c574-b09e-4b9e-ba21-797efbb8eb67-1770838820591/node_modules/todo-app.client"
 
 toggle-selection@^1.0.6:
   version "1.0.6"

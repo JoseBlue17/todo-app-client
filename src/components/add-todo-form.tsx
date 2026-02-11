@@ -1,7 +1,7 @@
 import { Form, Input, DatePicker } from 'antd';
 import type { FormInstance } from 'antd/es/form';
 import ColorPickerBox from './color-picker-box';
-import cn from '../helpers/cn';
+import { cn } from '../helpers';
 
 export interface ColorOption {
   hex: string;
