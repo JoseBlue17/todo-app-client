@@ -1,13 +1,15 @@
-import { message } from 'antd';
+import { useAppToast } from './useToast';
 
 interface IShowSuccessParams {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export function useShowSuccess() {
+  const { triggerToast } = useAppToast();
+
   const showSuccess = ({ title, description }: IShowSuccessParams) => {
-    message.success(`${title}: ${description}`, 2.5);
+    triggerToast({ title, description, type: 'success' });
   };
 
   return { showSuccess };
