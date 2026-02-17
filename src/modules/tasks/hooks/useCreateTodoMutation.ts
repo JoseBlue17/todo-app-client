@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useShowError, useShowSuccess } from '@/hooks';
-import type { AxiosResponseError } from '@/hooks';
+import { useShowError, useShowSuccess } from '../../../hooks';
+import type { AxiosResponseError } from '../../../hooks';
 import { createTodo } from '../services';
 import type { ITodo, ICreateTodoInput } from '../../../interfaces';
 
