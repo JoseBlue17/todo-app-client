@@ -1,9 +1,19 @@
-import { useTodo } from './use-todo-list.tsx';
+import { useTodo } from './useTodo';
 import TodoLayout from './todo-layout';
-import TodoList from './todo-list.tsx';
+import TodoList from './todo-list';
 
 export default function Todo() {
-  const { todos, loading, error, handleCheck, searchTerm, setSearchTerm } = useTodo();
+  const { 
+    todos, 
+    loading, 
+    error, 
+    handleCheck, 
+    handleLoadMore,
+    hasNextPage,
+    isFetchingNextPage,
+    searchTerm, 
+    setSearchTerm 
+  } = useTodo();
 
   return (
     <TodoLayout searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
@@ -15,6 +25,18 @@ export default function Todo() {
         </p>
       )}
       {!loading && !error && <TodoList todos={todos} handleCheck={handleCheck} />}
+      
+      {hasNextPage && !searchTerm && (
+        <div className="flex justify-center py-4">
+          <button
+            onClick={handleLoadMore}
+            disabled={isFetchingNextPage}
+            className="px-4 py-2 text-sm text-[#A175CA] border border-[#A175CA] rounded-lg hover:bg-[#A175CA]/10 transition-colors disabled:opacity-50"
+          >
+            {isFetchingNextPage ? 'Cargando...' : 'Ver más tareas'}
+          </button>
+        </div>
+      )}
     </TodoLayout>
   );
 }
