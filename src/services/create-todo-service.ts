@@ -1,6 +1,6 @@
 import axiosInstance from './axios-config';
 
-const TODO_ENDPOINT = '/tasks/';
+const TODO_ENDPOINT = '/tasks';
 
 export const createTodo = {
   createTodo: async (todoData: {

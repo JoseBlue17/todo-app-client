@@ -3,22 +3,10 @@ import TodoLayout from './todo-layout';
 import TodoList from './todo-list.tsx';
 
 export default function Todo() {
-  const { 
-    todos, 
-    loading, 
-    error, 
-    handleCheck, 
-    refetchTodos, 
-    searchTerm, 
-    setSearchTerm 
-  } = useTodo();
+  const { todos, loading, error, handleCheck, searchTerm, setSearchTerm } = useTodo();
 
   return (
-    <TodoLayout 
-      fetchTodos={refetchTodos}
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-    >
+    <TodoLayout searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
       {loading && <p>Cargando tareas...</p>}
       {error && <p className="text-red-600">{error}</p>}
       {!loading && !error && todos.length === 0 && (
