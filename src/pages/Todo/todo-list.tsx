@@ -1,9 +1,9 @@
-import type { Todo } from '../../types/todo.types';
-import { cn, getDueDateLabel, getDueHourLabel } from '../../helpers';
+import type { Todo } from '@/interfaces';
+import { cn, getDueDateLabel, getDueHourLabel } from '@/helpers';
 
 interface TodoListProps {
   todos: Todo[];
-  handleCheck: (todoId: string) => void;
+  handleCheck: (todoId: string, completed: boolean) => void;
 }
 
 export default function TodoList({ todos, handleCheck }: TodoListProps) {
@@ -31,7 +31,7 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
               <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => handleCheck(todo._id)}
+                onChange={() => handleCheck(todo._id, !todo.completed)}
                 className={cn(
                   'w-[16.5px] h-[16.5px] cursor-pointer mt-[1.4px]',
                   'accent-[#A175CA]',
