@@ -1,5 +1,5 @@
-import axiosInstance from '@/config/http';
-import type { ITodo } from '@/interfaces/todo.types';
+import axiosInstance from '../../../config/http';
+import type { ITodo } from '../../../interfaces/todo.types';
 
 export const updateTodoService = {
   updateTodo: async (todoId: string, completed: boolean): Promise<ITodo> => {

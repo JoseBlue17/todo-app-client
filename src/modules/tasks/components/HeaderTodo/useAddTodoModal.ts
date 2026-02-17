@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export function useAddTodoModal() {
-  const [selectedColor, setSelectedColor] = useState('#3B82F6');
+  const [selectedColor, setSelectedColor] = useState('#2195F2');
 
   return {
     selectedColor,

@@ -1,19 +1,14 @@
-import { Form } from '@tanstack/react-query';
+import { Form } from 'antd';
 import AddIcon from './AddIcon';
 import AddTodoModal from './AddTodoModal';
 import { useHeaderTodo } from './useHeaderTodo';
 
 interface IHeaderTodoProps {
-  setToast: (message: string | null) => void;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
 }
 
-export default function HeaderTodo({ 
-  setToast, 
-  searchTerm, 
-  setSearchTerm 
-}: IHeaderTodoProps) {
+export default function HeaderTodo({ searchTerm, setSearchTerm }: IHeaderTodoProps) {
   const [form] = Form.useForm();
   const {
     modalVisible,
@@ -23,7 +18,7 @@ export default function HeaderTodo({
     handleOpenModal,
     handleCloseModal,
     isLoading,
-  } = useHeaderTodo(setToast);
+  } = useHeaderTodo();
 
   return (
     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -32,11 +27,11 @@ export default function HeaderTodo({
           type="text"
           placeholder="Buscar tareas..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={e => setSearchTerm(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
-      
+
       <div className="flex items-center gap-3">
         <button
           onClick={handleOpenModal}
