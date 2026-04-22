@@ -1,31 +1,32 @@
 import { useTodo } from './useTodo';
 import TodoLayout from './todo-layout';
 import TodoList from './todo-list';
+import { Empty, LoadingFallback } from '@/components';
 
 export default function Todo() {
-  const { 
-    todos, 
-    loading, 
-    error, 
-    handleCheck, 
+  const {
+    todos,
+    loading,
+    error,
+    handleCheck,
     handleLoadMore,
     hasNextPage,
     isFetchingNextPage,
-    searchTerm, 
-    setSearchTerm 
+    searchTerm,
+    setSearchTerm,
   } = useTodo();
 
   return (
     <TodoLayout searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
-      {loading && <p>Cargando tareas...</p>}
+      {loading && <LoadingFallback description="Cargando tareas..." />}
       {error && <p className="text-red-600">{error}</p>}
       {!loading && !error && todos.length === 0 && (
-        <p className="text-gray-500">
-          {searchTerm ? 'No se encontraron tareas.' : 'No hay tareas aún.'}
-        </p>
+        <Empty text={searchTerm ? 'No se encontraron tareas.' : 'No hay tareas aún.'} />
       )}
-      {!loading && !error && <TodoList todos={todos} handleCheck={handleCheck} />}
-      
+      {!loading && !error && todos.length > 0 && (
+        <TodoList todos={todos} handleCheck={handleCheck} />
+      )}
+
       {hasNextPage && !searchTerm && (
         <div className="flex justify-center py-4">
           <button
