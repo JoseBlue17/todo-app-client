@@ -1,5 +1,5 @@
 import { LoginLayout } from './login-layout';
-import { LoginForm } from './login-form.tsx';
+import { LoginForm } from '../../modules/auth/login';
 
 export default function Login() {
   return (

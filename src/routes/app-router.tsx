@@ -26,6 +26,14 @@ export default function AppRouter() {
           }
         />
         <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
+        <Route
           path="/home"
           element={
             <ProtectedRoute>
