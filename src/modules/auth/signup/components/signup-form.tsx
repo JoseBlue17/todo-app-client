@@ -14,16 +14,53 @@ export function SignupForm() {
   const errorClasses = 'text-red-500 text-xs mt-1';
   const wrapperClasses = 'w-full max-w-xs mb-3';
 
-  const initialValues: ISignupValues = { email: '', password: '', confirmPassword: '' };
+  const initialValues: ISignupValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
 
   const onSubmit = (values: ISignupValues) => {
-    signup({ email: values.email.trim().toLowerCase(), password: values.password });
+    signup({
+      firstName: values.firstName.trim(),
+      lastName: values.lastName.trim(),
+      email: values.email.trim().toLowerCase(),
+      password: values.password,
+    });
   };
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {({ getFieldProps, errors, touched }) => (
         <Form className="w-full max-w-xs flex flex-col items-center">
+          <div className={wrapperClasses}>
+            <input
+              type="text"
+              placeholder="First name"
+              disabled={isLoading}
+              className={inputClasses}
+              {...getFieldProps('firstName')}
+            />
+            {touched.firstName && errors.firstName && (
+              <p className={errorClasses}>{errors.firstName}</p>
+            )}
+          </div>
+
+          <div className={wrapperClasses}>
+            <input
+              type="text"
+              placeholder="Last name"
+              disabled={isLoading}
+              className={inputClasses}
+              {...getFieldProps('lastName')}
+            />
+            {touched.lastName && errors.lastName && (
+              <p className={errorClasses}>{errors.lastName}</p>
+            )}
+          </div>
+
           <div className={wrapperClasses}>
             <input
               type="email"
