@@ -6,14 +6,14 @@ import { useEffect } from 'react';
 
 const PAGE_SIZE = 10;
 
-export function useGetTodos() {
+export function useGetTodos(terms?: string) {
   const { showError } = useShowError();
 
   const query = useInfiniteQuery<Todo[], AxiosResponseError>({
-    queryKey: ['TASKS'],
+    queryKey: ['TASKS', terms],
     queryFn: ({ pageParam }) => {
       return Http.get<{ tasks: Todo[] }>('/tasks', {
-        params: { cursor: pageParam, size: PAGE_SIZE },
+        params: { cursor: pageParam, size: PAGE_SIZE, ...(terms ? { terms } : {}) },
       }).then(({ data }) => data.tasks || []);
     },
     getNextPageParam: lastPage => {

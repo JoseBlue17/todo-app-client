@@ -11,16 +11,10 @@ export function useCreateTodoMutation() {
 
   return useMutation<ITodo, AxiosResponseError, ICreateTodoInput>({
     mutationKey: ['CREATE_TODO'],
-    mutationFn: async todoData => {
-      console.log('Creating todo with data:', todoData);
-      const result = await createTodo.createTodo(todoData);
-      console.log('Created todo result:', result);
-      return result;
-    },
+    mutationFn: todoData => createTodo.createTodo(todoData),
     onSuccess: () => {
       showSuccess({ title: 'Éxito', description: 'Tarea creada con éxito' });
       queryClient.invalidateQueries({ queryKey: ['TASKS'] });
-      console.log('Invalidated TASKS query');
     },
     onError: (error: AxiosResponseError) => {
       showError(error);

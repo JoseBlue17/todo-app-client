@@ -1,26 +1,27 @@
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import { useShowError } from '../../../../hooks/use-show-error';
-import { useShowSuccess } from '../../../../hooks/use-show-success';
-import type { AxiosResponseError } from '../../../../hooks/use-show-error';
-import { loginService } from '../services/login.service';
-import type { ILoginValues } from '../login.interface';
+import { Http } from '@/config/http';
+import { useAuth } from '@/hooks';
+import { useShowError } from '@/hooks';
+import type { AxiosResponseError } from '@/hooks';
+import type { ILoginInput, ILoginResponse } from '../login.interface';
 
 export function useLogin() {
-  const navigate = useNavigate();
+  const { onLogin } = useAuth();
   const { showError } = useShowError();
-  const { showSuccess } = useShowSuccess();
 
-  return useMutation<{ token: string }, AxiosResponseError, ILoginValues>({
+  const { mutate: login, isPending: isLoading } = useMutation<
+    ILoginResponse,
+    AxiosResponseError,
+    ILoginInput
+  >({
     mutationKey: ['LOGIN'],
-    mutationFn: body => loginService.login(body),
-    onSuccess: ({ token }) => {
-      localStorage.setItem('jwtToken', token);
-      showSuccess({ title: 'Welcome back!', description: 'Login successful.' });
-      navigate('/home', { replace: true });
+    mutationFn: credentials =>
+      Http.post<ILoginResponse>('/users/login', credentials).then(({ data }) => data),
+    onSuccess: data => {
+      onLogin({ token: data.token, user: data.user });
     },
-    onError: error => {
-      showError(error);
-    },
+    onError: error => showError(error),
   });
+
+  return { login, isLoading };
 }

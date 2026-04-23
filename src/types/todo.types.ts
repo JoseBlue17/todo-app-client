@@ -1,7 +1,7 @@
 export type Todo = {
   _id: string;
   title: string;
-  description: string;
+  description?: string;
   category?: string;
   dueDate: string | Date | undefined;
   completed: boolean;

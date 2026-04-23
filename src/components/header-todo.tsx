@@ -4,7 +4,7 @@ import SearchBar from './search-bar';
 import AddIcon from './add-icon';
 import AddTodoModal from './add-todo-modal';
 import { useAddTodoModal } from './useAddTodoModal';
-import { useCreateTodoMutation } from '../modules/tasks/hooks/useCreateTodoMutation';
+import { useCreateTodoMutation } from '../pages/Todo/hooks';
 import TaskDropdown from '../modules/tasks/components/Dropdown';
 import { getMenuItems } from '../modules/tasks/components/Dropdown';
 import { cn } from '../helpers';

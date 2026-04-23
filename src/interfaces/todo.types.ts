@@ -1,12 +1,12 @@
 export interface ITodo {
-  id: string;
+  _id: string;
   title: string;
   description?: string;
   category?: string;
   completed: boolean;
-  dueDate?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  dueDate?: Date | string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ITodoData {
@@ -24,7 +24,4 @@ export interface ICreateTodoInput {
   dueDate?: Date;
 }
 
-// Alternative interface for compatibility with TodoList component
-export interface Todo extends ITodo {
-  _id: string;
-}
+export type Todo = ITodo;
