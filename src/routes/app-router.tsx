@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from '../modules/auth/login';
+import { SignUpPage } from '../modules/auth/signup';
 import Home from '../pages/Todo/todos';
 import ProtectedRoute from './protected-route';
 import PublicRoute from './public-route';
@@ -29,7 +30,7 @@ export default function AppRouter() {
           path="/signup"
           element={
             <PublicRoute>
-              <Signup />
+              <SignUpPage />
             </PublicRoute>
           }
         />
