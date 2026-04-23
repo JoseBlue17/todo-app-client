@@ -1,4 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { loginValidationSchema } from '../validation-schema';
 import { useLogin } from '../hooks/use-login';
 import ListIcon from '@/components/list-icon';
@@ -9,6 +10,7 @@ const inputClasses =
 
 export function LoginForm() {
   const { login, isLoading } = useLogin();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col justify-center items-center w-full md:w-1/2 px-6 bg-white md:self-center">
@@ -59,8 +61,15 @@ export function LoginForm() {
               {isLoading ? 'Ingresando...' : 'Log in'}
             </button>
 
-            <div className="flex justify-center text-xs font-bold max-w-xs mt-[93px] text-gray-700">
-              Not registered yet? Create an account
+            <div className="flex justify-center items-center gap-1 text-xs font-bold max-w-xs mt-[93px] text-gray-700">
+              Not registered yet?
+              <button
+                type="button"
+                onClick={() => navigate('/signup')}
+                className="text-[#A275CA] hover:underline"
+              >
+                Create an account
+              </button>
             </div>
           </Form>
         )}
