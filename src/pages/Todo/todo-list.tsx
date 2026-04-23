@@ -1,17 +1,40 @@
+import { Popconfirm } from 'antd';
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 import type { Todo } from '@/interfaces';
 import { cn, getDueDateLabel, getDueHourLabel } from '@/helpers';
 
 interface TodoListProps {
   todos: Todo[];
   handleCheck: (todoId: string, completed: boolean) => void;
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+  isDeleting?: boolean;
 }
 
-export default function TodoList({ todos, handleCheck }: TodoListProps) {
+export default function TodoList({
+  todos,
+  handleCheck,
+  onEdit,
+  onDelete,
+  isDeleting,
+}: TodoListProps) {
   return (
     <>
       {todos.map((todo, index) => {
-        const dueDateLabel = getDueDateLabel(todo.dueDate ? (todo.dueDate instanceof Date ? todo.dueDate : new Date(todo.dueDate)) : undefined);
-        const dueHourLabel = getDueHourLabel(todo.dueDate ? (todo.dueDate instanceof Date ? todo.dueDate : new Date(todo.dueDate)) : undefined);
+        const dueDateLabel = getDueDateLabel(
+          todo.dueDate
+            ? todo.dueDate instanceof Date
+              ? todo.dueDate
+              : new Date(todo.dueDate)
+            : undefined,
+        );
+        const dueHourLabel = getDueHourLabel(
+          todo.dueDate
+            ? todo.dueDate instanceof Date
+              ? todo.dueDate
+              : new Date(todo.dueDate)
+            : undefined,
+        );
 
         return (
           <div
@@ -27,7 +50,7 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
               index === 0 && 'pt-5 lg:pt-0',
             )}
           >
-            <div className="flex lg:items-center items-start gap-4 ">
+            <div className="flex lg:items-center items-start gap-4">
               <input
                 type="checkbox"
                 checked={todo.completed}
@@ -37,7 +60,7 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
                   'accent-[#A175CA]',
                 )}
               />
-              <div 
+              <div
                 className={cn(
                   'w-[20px]',
                   'h-[20px]',
@@ -47,6 +70,7 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
                 style={!todo.completed ? { backgroundColor: todo.category } : undefined}
               />
               <div className="flex-1">
+                {/* Desktop layout */}
                 <div className="hidden lg:grid lg:grid-cols-[1.3fr_1.5fr_3.8fr_0.8fr] lg:gap-5 items-center">
                   <p
                     className={cn(
@@ -74,6 +98,8 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
                     {dueHourLabel}
                   </span>
                 </div>
+
+                {/* Mobile layout */}
                 <div className="lg:hidden flex flex-col gap-2">
                   <div className="flex flex-row justify-between items-start">
                     <p
@@ -110,6 +136,39 @@ export default function TodoList({ todos, handleCheck }: TodoListProps) {
                     </p>
                   </div>
                 </div>
+              </div>
+
+              
+              <div className="flex items-center gap-2 ml-auto shrink-0">
+                <button
+                  onClick={() => onEdit(todo._id)}
+                  disabled={todo.completed}
+                  className={cn(
+                    'p-1.5 rounded-md transition-colors',
+                    todo.completed
+                      ? 'text-gray-300 cursor-not-allowed'
+                      : 'text-[#A175CA] hover:bg-[#A175CA]/10',
+                  )}
+                  title="Editar tarea"
+                >
+                  <FiEdit2 size={15} />
+                </button>
+
+                <Popconfirm
+                  title="¿Eliminar tarea?"
+                  description="Esta acción no se puede deshacer."
+                  onConfirm={() => onDelete(todo._id)}
+                  okText="Sí, eliminar"
+                  cancelText="Cancelar"
+                  okButtonProps={{ danger: true, loading: isDeleting }}
+                >
+                  <button
+                    className="p-1.5 rounded-md text-red-400 hover:bg-red-50 transition-colors"
+                    title="Eliminar tarea"
+                  >
+                    <FiTrash2 size={15} />
+                  </button>
+                </Popconfirm>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { useTodo } from './useTodo';
 import TodoLayout from './todo-layout';
 import TodoList from './todo-list';
 import { Empty, LoadingFallback } from '@/components';
+import EditTodoModal from '@/components/edit-todo-modal';
 
 export default function Todo() {
   const {
@@ -9,12 +10,20 @@ export default function Todo() {
     loading,
     error,
     handleCheck,
+    handleEdit,
+    handleDelete,
     handleLoadMore,
     hasNextPage,
     isFetchingNextPage,
     searchTerm,
     setSearchTerm,
+    editingTodoId,
+    setEditingTodoId,
+    isEditing,
+    isDeleting,
   } = useTodo();
+
+  const editingTodo = todos.find(t => t._id === editingTodoId) ?? null;
 
   return (
     <TodoLayout searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
@@ -24,10 +33,16 @@ export default function Todo() {
         <Empty text={searchTerm ? 'No se encontraron tareas.' : 'No hay tareas aún.'} />
       )}
       {!loading && !error && todos.length > 0 && (
-        <TodoList todos={todos} handleCheck={handleCheck} />
+        <TodoList
+          todos={todos}
+          handleCheck={handleCheck}
+          onEdit={id => setEditingTodoId(id)}
+          onDelete={handleDelete}
+          isDeleting={isDeleting}
+        />
       )}
 
-      {hasNextPage && !searchTerm && (
+      {hasNextPage && (
         <div className="flex justify-center py-4">
           <button
             onClick={handleLoadMore}
@@ -38,6 +53,14 @@ export default function Todo() {
           </button>
         </div>
       )}
+
+      <EditTodoModal
+        todo={editingTodo}
+        visible={!!editingTodoId}
+        onCancel={() => setEditingTodoId(null)}
+        onOk={handleEdit}
+        isLoading={isEditing}
+      />
     </TodoLayout>
   );
 }
